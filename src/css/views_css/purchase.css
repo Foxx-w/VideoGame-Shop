@@ -1,0 +1,792 @@
+/* history.css - Основные стили */
+
+/* Сброс и базовые стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #F5F5F5;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* Заголовок */
+.site-header {
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #A53DFF;
+    text-decoration: none;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s;
+    padding: 5px 0;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: #A53DFF;
+}
+
+.nav-link.active {
+    color: #A53DFF;
+    font-weight: 600;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #A53DFF;
+    border-radius: 2px;
+}
+
+/* Основной контейнер истории */
+.history-root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #F5F5F5;
+}
+
+.history-canvas {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    min-height: calc(100vh - 164px);
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+.history-inner {
+    width: 100%;
+    max-width: 1400px;
+    display: flex;
+    gap: 140px;
+    padding: 0;
+    box-sizing: border-box;
+    align-items: stretch;
+}
+
+/* Контейнер истории */
+.history-container {
+    flex: 1;
+    background: #FDFDFD;
+    border-radius: 30px;
+    padding: 30px 36px;
+    box-sizing: border-box;
+    min-height: 600px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.history-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #E0E0E0;
+    margin-bottom: 24px;
+}
+
+.history-title {
+    font-size: 36px;
+    margin: 0;
+    font-weight: 500;
+    font-family: 'Montserrat Alternates', sans-serif;
+    color: #111;
+}
+
+.history-count {
+    font-size: 20px;
+    color: #676767;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.history-items-label {
+    color: #676767;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 20px;
+}
+
+.history-items-number {
+    min-width: 56px;
+    display: inline-block;
+    font-weight: 600;
+    color: #333;
+    background: #f0f0f0;
+    padding: 4px 12px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.history-body {
+    margin-top: 24px;
+}
+
+.history-sidebar {
+    width: 340px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.history-image {
+    width: 423px;
+    height: 624px;
+    border-radius: 30px;
+    object-fit: cover;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+
+/* Состояния загрузки и ошибки */
+.history-loading,
+.history-error,
+.history-empty {
+    text-align: center;
+    padding: 80px 20px;
+    color: #676767;
+    font-family: 'Montserrat Alternates', sans-serif;
+    border-radius: 15px;
+    margin: 20px 0;
+}
+
+.history-loading {
+    font-size: 18px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.history-error {
+    background: #fff5f5;
+    border: 1px solid #ffcccc;
+}
+
+.history-empty {
+    background: #f8f8f8;
+    border: 2px dashed #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+}
+
+.history-error p,
+.history-empty p {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+}
+
+.retry-button,
+.browse-button {
+    margin-top: 15px;
+    padding: 12px 28px;
+    background: #A53DFF;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.retry-button:hover,
+.browse-button:hover {
+    background: #8C2BD9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(165, 61, 255, 0.2);
+}
+
+/* Стили для списка заказов */
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.order-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 16px;
+    padding: 24px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s;
+}
+
+.order-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    border-color: #d0d0d0;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.order-id {
+    font-weight: 600;
+    color: #333;
+    font-size: 18px;
+    background: #f8f8f8;
+    padding: 6px 12px;
+    border-radius: 8px;
+}
+
+.order-date {
+    color: #666;
+    font-size: 14px;
+    flex: 1;
+    text-align: center;
+}
+
+.order-status {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    min-width: 120px;
+    text-align: center;
+}
+
+.status-completed {
+    background: #e7f7ef;
+    color: #0a9c4d;
+    border: 1px solid #b8e6cd;
+}
+
+.status-processing {
+    background: #e7f0ff;
+    color: #4a6cf7;
+    border: 1px solid #c2d3ff;
+}
+
+.status-cancelled {
+    background: #ffeaea;
+    color: #f74a4a;
+    border: 1px solid #ffc2c2;
+}
+
+.status-delivered {
+    background: #f0f7ff;
+    color: #2a8bf7;
+    border: 1px solid #c2e0ff;
+}
+
+.status-paid {
+    background: #f0fff4;
+    color: #52c41a;
+    border: 1px solid #c2e6c9;
+}
+
+.status-shipped {
+    background: #f0f7ff;
+    color: #1890ff;
+    border: 1px solid #b8d9ff;
+}
+
+.status-default {
+    background: #f5f5f5;
+    color: #666;
+    border: 1px solid #ddd;
+}
+
+.order-total {
+    font-weight: 700;
+    font-size: 20px;
+    color: #333;
+    font-family: 'Montserrat Alternates', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Стили для элементов заказа */
+.order-items {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px;
+    border-radius: 10px;
+    background: #fafafa;
+    transition: all 0.3s;
+}
+
+.order-item:hover {
+    background: #f5f5f5;
+    transform: translateX(5px);
+}
+
+.item-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.item-title {
+    margin: 0 0 6px 0;
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-price {
+    margin: 0;
+    color: #666;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.item-quantity {
+    font-weight: 600;
+    color: #333;
+    font-size: 16px;
+    font-family: 'Montserrat Alternates', sans-serif;
+    background: #f0f0f0;
+    padding: 6px 12px;
+    border-radius: 6px;
+    min-width: 60px;
+    text-align: center;
+}
+
+/* Футер */
+.site-footer {
+    background: #333;
+    color: white;
+    padding: 25px 0;
+    margin-top: auto;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.footer-container p {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* Адаптивность */
+@media (max-width: 1600px) {
+    .history-inner {
+        max-width: 1300px;
+        gap: 120px;
+    }
+    
+    .history-sidebar {
+        width: 320px;
+    }
+    
+    .history-image {
+        width: 400px;
+        height: 590px;
+    }
+}
+
+@media (max-width: 1500px) {
+    .history-inner {
+        max-width: 1200px;
+        gap: 100px;
+    }
+    
+    .history-sidebar {
+        width: 300px;
+    }
+    
+    .history-image {
+        width: 380px;
+        height: 560px;
+    }
+}
+
+@media (max-width: 1400px) {
+    .history-inner {
+        max-width: 1100px;
+        gap: 80px;
+    }
+    
+    .history-sidebar {
+        width: 280px;
+    }
+    
+    .history-image {
+        width: 350px;
+        height: 520px;
+    }
+    
+    .history-title {
+        font-size: 34px;
+    }
+    
+    .history-container {
+        padding: 28px 32px;
+    }
+}
+
+@media (max-width: 1300px) {
+    .history-inner {
+        gap: 60px;
+        max-width: 1000px;
+    }
+    
+    .history-sidebar {
+        width: 260px;
+    }
+    
+    .history-image {
+        width: 320px;
+        height: 480px;
+    }
+    
+    .history-title {
+        font-size: 32px;
+    }
+    
+    .history-items-label {
+        font-size: 19px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .history-canvas {
+        padding: 35px 20px;
+    }
+    
+    .history-inner {
+        gap: 40px;
+        max-width: 900px;
+    }
+    
+    .history-sidebar {
+        width: 200px;
+    }
+    
+    .history-image {
+        width: 250px;
+        height: 370px;
+    }
+    
+    .history-title {
+        font-size: 30px;
+    }
+    
+    .history-container {
+        padding: 25px 30px;
+    }
+    
+    .nav-menu {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .history-canvas {
+        padding: 30px 18px;
+    }
+    
+    .history-inner {
+        flex-direction: column;
+        gap: 30px;
+        max-width: 800px;
+    }
+    
+    .history-image {
+        display: none;
+    }
+    
+    .history-sidebar {
+        display: none;
+    }
+    
+    .history-container {
+        width: 100%;
+        padding: 24px 28px;
+    }
+    
+    .history-title {
+        font-size: 28px;
+    }
+    
+    .history-items-label {
+        font-size: 18px;
+    }
+    
+    .history-count {
+        font-size: 19px;
+    }
+    
+    .header-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 900px) {
+    .history-canvas {
+        padding: 20px 15px;
+    }
+    
+    .history-inner {
+        gap: 20px;
+    }
+    
+    .history-container {
+        padding: 22px 24px;
+        border-radius: 25px;
+    }
+    
+    .history-title {
+        font-size: 26px;
+    }
+    
+    .history-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .history-count {
+        font-size: 18px;
+    }
+    
+    .history-items-label {
+        font-size: 17px;
+    }
+    
+    .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .history-canvas {
+        padding: 18px 12px;
+    }
+    
+    .history-container {
+        padding: 20px 22px;
+        border-radius: 22px;
+    }
+    
+    .history-title {
+        font-size: 24px;
+    }
+    
+    .history-count {
+        font-size: 17px;
+    }
+    
+    .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .order-id, .order-date, .order-status, .order-total {
+        width: 100%;
+        text-align: left;
+    }
+}
+
+@media (max-width: 600px) {
+    .history-canvas {
+        padding: 15px 10px;
+    }
+    
+    .history-container {
+        padding: 18px 20px;
+        border-radius: 20px;
+    }
+    
+    .history-title {
+        font-size: 22px;
+    }
+    
+    .history-header {
+        gap: 8px;
+        padding-bottom: 14px;
+    }
+    
+    .history-count {
+        font-size: 16px;
+    }
+    
+    .history-items-label {
+        font-size: 16px;
+    }
+    
+    .history-body {
+        margin-top: 20px;
+    }
+    
+    .order-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .item-info {
+        text-align: center;
+    }
+    
+    .nav-menu {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .history-canvas {
+        padding: 12px 8px;
+    }
+    
+    .history-container {
+        padding: 16px 18px;
+        border-radius: 18px;
+    }
+    
+    .history-title {
+        font-size: 20px;
+    }
+    
+    .history-header {
+        gap: 6px;
+        padding-bottom: 12px;
+    }
+    
+    .history-count {
+        font-size: 15px;
+    }
+    
+    .history-items-label {
+        font-size: 15px;
+    }
+    
+    .history-body {
+        margin-top: 18px;
+    }
+    
+    .order-card {
+        padding: 16px;
+    }
+    
+    .logo {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 360px) {
+    .history-canvas {
+        padding: 10px 6px;
+    }
+    
+    .history-container {
+        padding: 14px 16px;
+        border-radius: 16px;
+    }
+    
+    .history-title {
+        font-size: 18px;
+    }
+    
+    .history-header {
+        gap: 5px;
+        padding-bottom: 10px;
+    }
+    
+    .history-count {
+        font-size: 14px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    
+    .history-items-label {
+        font-size: 14px;
+    }
+    
+    .history-body {
+        margin-top: 16px;
+    }
+}

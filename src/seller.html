@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель продавца - GameStore</title>
+    <link rel="stylesheet" href="css/views_css/seller.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;600&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-root">
+        <!-- Заголовок -->
+        <header class="site-header">
+            <div class="header-container">
+                <div class="logo">GameStore</div>
+                <nav class="nav-menu">
+                    <a href="/" class="nav-link">Главная</a>
+                    <a href="/seller" class="nav-link active">Мои игры</a>
+                    <a href="/statistics" class="nav-link">Статистика</a>
+                    <a href="/profile" class="nav-link">Профиль</a>
+                    <button class="logout-btn" id="logoutBtn">Выйти</button>
+                </nav>
+            </div>
+        </header>
+
+        <main class="seller-canvas" role="main" aria-label="Страница продавца">
+            <div class="products-section">
+                <div class="products-header">
+                    <h2 class="products-title">Мои игры</h2>
+                    <span class="products-count" id="gamesCount">3 шт.</span>
+                    <button class="add-product-btn" id="addGameBtn" aria-label="Добавить игру">
+                        Добавить игру
+                    </button>
+                </div>
+
+                <!-- Список игр -->
+                <div class="products-container" id="gamesContainer">
+                    <!-- Игра 1 -->
+                    <div class="game-card" data-id="1">
+                        <img src="https://via.placeholder.com/300x180/667eea/ffffff?text=Cyberpunk+2077" alt="Cyberpunk 2077" class="game-image" />
+                        <div class="game-info">
+                            <h3 class="game-title">Cyberpunk 2077</h3>
+                            <p class="game-price">1 999 ₽</p>
+                            <p class="game-keys">Ключей: 15</p>
+                            <div class="game-actions">
+                                <button class="btn-edit" data-id="1">Редактировать</button>
+                                <button class="btn-delete" data-id="1">Удалить</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Игра 2 -->
+                    <div class="game-card" data-id="2">
+                        <img src="https://via.placeholder.com/300x180/764ba2/ffffff?text=The+Witcher+3" alt="The Witcher 3" class="game-image" />
+                        <div class="game-info">
+                            <h3 class="game-title">The Witcher 3: Wild Hunt</h3>
+                            <p class="game-price">999 ₽</p>
+                            <p class="game-keys">Ключей: 8</p>
+                            <div class="game-actions">
+                                <button class="btn-edit" data-id="2">Редактировать</button>
+                                <button class="btn-delete" data-id="2">Удалить</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Игра 3 -->
+                    <div class="game-card" data-id="3">
+                        <img src="https://via.placeholder.com/300x180/f5576c/ffffff?text=Baldur%27s+Gate+3" alt="Baldur's Gate 3" class="game-image" />
+                        <div class="game-info">
+                            <h3 class="game-title">Baldur's Gate 3</h3>
+                            <p class="game-price">2 999 ₽</p>
+                            <p class="game-keys">Ключей: 5</p>
+                            <div class="game-actions">
+                                <button class="btn-edit" data-id="3">Редактировать</button>
+                                <button class="btn-delete" data-id="3">Удалить</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Игра 4 -->
+                    <div class="game-card" data-id="4">
+                        <img src="https://via.placeholder.com/300x180/f093fb/ffffff?text=EA+FC+24" alt="EA FC 24" class="game-image" />
+                        <div class="game-info">
+                            <h3 class="game-title">EA SPORTS FC 24</h3>
+                            <p class="game-price">1 499 ₽</p>
+                            <p class="game-keys">Ключей: 12</p>
+                            <div class="game-actions">
+                                <button class="btn-edit" data-id="4">Редактировать</button>
+                                <button class="btn-delete" data-id="4">Удалить</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Игра 5 -->
+                    <div class="game-card" data-id="5">
+                        <img src="https://via.placeholder.com/300x180/4CAF50/ffffff?text=Stardew+Valley" alt="Stardew Valley" class="game-image" />
+                        <div class="game-info">
+                            <h3 class="game-title">Stardew Valley</h3>
+                            <p class="game-price">599 ₽</p>
+                            <p class="game-keys">Ключей: 20</p>
+                            <div class="game-actions">
+                                <button class="btn-edit" data-id="5">Редактировать</button>
+                                <button class="btn-delete" data-id="5">Удалить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Футер -->
+        <footer class="site-footer">
+            <div class="footer-container">
+                <p>© 2024 GameStore. Панель продавца</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Модальное окно для добавления игры -->
+    <div id="addGameModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Добавить новую игру</h3>
+                <button class="modal-close" id="modalCloseBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="gameForm">
+                    <div class="form-group">
+                        <label for="gameTitle">Название игры *</label>
+                        <input type="text" id="gameTitle" placeholder="Введите название игры" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gamePrice">Цена (₽) *</label>
+                        <input type="number" id="gamePrice" placeholder="1000" min="0" step="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gameKeys">Количество ключей *</label>
+                        <input type="number" id="gameKeys" placeholder="10" min="1" step="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gameImage">URL изображения</label>
+                        <input type="url" id="gameImage" placeholder="https://example.com/image.jpg">
+                    </div>
+                    <div class="form-group">
+                        <label for="gameDescription">Описание</label>
+                        <textarea id="gameDescription" placeholder="Описание игры" rows="4"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-submit">Сохранить</button>
+                        <button type="button" class="btn-cancel" id="cancelBtn">Отмена</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/product_edit.js"></script>
+</body>
+</html>

@@ -1,0 +1,649 @@
+/* seller.css - Стили для страницы продавца */
+
+/* Сброс и базовые стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #F5F5F5;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* Заголовок */
+.site-header {
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-container {
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 0 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: #A53DFF;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s;
+    padding: 5px 0;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: #A53DFF;
+}
+
+.nav-link.active {
+    color: #A53DFF;
+    font-weight: 600;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #A53DFF;
+    border-radius: 2px;
+}
+
+.logout-btn {
+    background: #fff;
+    color: #ff4444;
+    border: 1px solid #ff4444;
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.logout-btn:hover {
+    background: #ff4444;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 68, 68, 0.2);
+}
+
+/* Основной контейнер */
+.app-root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.seller-canvas {
+    max-width: 1920px;
+    width: 100%;
+    flex: 1;
+    background: #F5F5F5;
+    padding: 40px 64px;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+/* Секция с играми */
+.products-section {
+    background: #FFFFFF;
+    border-radius: 30px;
+    padding: 32px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    min-height: 600px;
+}
+
+.products-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.products-title {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 32px;
+    margin: 0;
+    color: #111;
+}
+
+.products-count {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 18px;
+    color: #666;
+    background: #F5F5F5;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.add-product-btn {
+    background: #222222;
+    color: #fff;
+    border: 0;
+    border-radius: 30px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.add-product-btn:hover {
+    background: #A53DFF;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(165, 61, 255, 0.3);
+}
+
+.add-product-btn:active {
+    transform: translateY(0);
+}
+
+/* Контейнер игр */
+.products-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 28px;
+    padding-top: 20px;
+}
+
+/* Карточка игры */
+.game-card {
+    background: #FFFFFF;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #EFEFEF;
+    position: relative;
+}
+
+.game-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.game-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.game-info {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-title {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    color: #111;
+    line-height: 1.3;
+    min-height: 52px;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.game-price {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #52C41A;
+    margin: 0 0 8px 0;
+}
+
+.game-keys {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: #666;
+    margin: 0 0 20px 0;
+    padding: 4px 8px;
+    background: #F6FFED;
+    border-radius: 4px;
+    display: inline-block;
+    align-self: flex-start;
+    border: 1px solid #B7EB8F;
+}
+
+.game-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: auto;
+}
+
+.btn-edit, .btn-delete {
+    flex: 1;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.btn-edit {
+    background: #0962C9;
+    color: white;
+}
+
+.btn-edit:hover {
+    background: #0850A6;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(9, 98, 201, 0.2);
+}
+
+.btn-delete {
+    background: #FFF2E8;
+    color: #FA541C;
+    border: 1px solid #FFBB96;
+}
+
+.btn-delete:hover {
+    background: #FFE7D9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(250, 84, 28, 0.1);
+}
+
+/* Модальное окно */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    animation: modalFade 0.3s ease;
+}
+
+@keyframes modalFade {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 30px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-header h3 {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 24px;
+    color: #111;
+    margin: 0;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #999;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.modal-close:hover {
+    background: #f5f5f5;
+    color: #333;
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+/* Форма */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    transition: border 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #A53DFF;
+    box-shadow: 0 0 0 3px rgba(165, 61, 255, 0.1);
+}
+
+.form-group input[type="number"] {
+    appearance: textfield;
+}
+
+.form-group input[type="number"]::-webkit-inner-spin-button,
+.form-group input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.btn-submit, .btn-cancel {
+    flex: 1;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Montserrat Alternates', sans-serif;
+    transition: all 0.3s;
+}
+
+.btn-submit {
+    background: #A53DFF;
+    color: white;
+}
+
+.btn-submit:hover {
+    background: #8C2BD9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(165, 61, 255, 0.3);
+}
+
+.btn-cancel {
+    background: #f5f5f5;
+    color: #666;
+    border: 1px solid #ddd;
+}
+
+.btn-cancel:hover {
+    background: #e5e5e5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Футер */
+.site-footer {
+    background: #333;
+    color: white;
+    padding: 25px 0;
+    margin-top: auto;
+}
+
+.footer-container {
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 0 64px;
+    text-align: center;
+}
+
+.footer-container p {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* Адаптивность */
+@media (max-width: 1400px) {
+    .seller-canvas {
+        padding: 40px 50px;
+    }
+    
+    .header-container {
+        padding: 0 50px;
+    }
+    
+    .products-container {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 24px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .seller-canvas {
+        padding: 40px 30px;
+    }
+    
+    .header-container {
+        padding: 0 30px;
+    }
+    
+    .products-section {
+        padding: 28px;
+    }
+    
+    .products-title {
+        font-size: 28px;
+    }
+    
+    .products-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (max-width: 900px) {
+    .seller-canvas {
+        padding: 30px 20px;
+    }
+    
+    .header-container {
+        padding: 0 20px;
+    }
+    
+    .products-section {
+        padding: 24px;
+        border-radius: 24px;
+    }
+    
+    .products-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    
+    .products-title {
+        font-size: 26px;
+        text-align: center;
+    }
+    
+    .products-count {
+        align-self: center;
+    }
+    
+    .add-product-btn {
+        width: 100%;
+    }
+    
+    .products-container {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 16px;
+    }
+    
+    .game-image {
+        height: 160px;
+    }
+    
+    .game-title {
+        font-size: 18px;
+        min-height: 46px;
+    }
+    
+    .game-price {
+        font-size: 22px;
+    }
+    
+    .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    .seller-canvas {
+        padding: 20px 15px;
+    }
+    
+    .header-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .products-section {
+        padding: 20px;
+        border-radius: 20px;
+    }
+    
+    .products-title {
+        font-size: 24px;
+    }
+    
+    .products-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .game-card {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .game-image {
+        height: 180px;
+    }
+    
+    .btn-edit, .btn-delete {
+        padding: 12px 16px;
+        font-size: 15px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        max-height: 85vh;
+    }
+    
+    .modal-header {
+        padding: 20px;
+    }
+    
+    .modal-body {
+        padding: 20px;
+    }
+    
+    .nav-menu {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .seller-canvas {
+        padding: 15px 10px;
+    }
+    
+    .products-section {
+        padding: 16px;
+        border-radius: 16px;
+    }
+    
+    .products-title {
+        font-size: 22px;
+    }
+    
+    .game-title {
+        font-size: 17px;
+    }
+    
+    .game-price {
+        font-size: 20px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,447 @@
+/* login.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat Alternates', sans-serif;
+    background: #F5F5F5;
+    min-height: 100vh;
+}
+
+.login-root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-canvas {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: #F5F5F5;
+    flex: 1;
+    padding: 150px 70px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.login-layout {
+    display: flex;
+    align-items: center;
+    gap: 160px;
+    width: 100%;
+    max-width: 1480px;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+}
+
+.login-image {
+    width: 900px;
+    height: 510px;
+    background-image: url('/src/assets/photos/login.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 30px;
+    flex: 0 0 900px;
+    transition: all 0.3s ease;
+}
+
+.login-form {
+    width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.login-title {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 36px;
+    margin: 0 0 6px;
+    line-height: 1.2;
+    transition: font-size 0.3s ease;
+}
+
+.login-sub {
+    margin: 0;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.4;
+    transition: font-size 0.3s ease;
+}
+
+.login-field {
+    display: block;
+}
+
+.login-field input,
+.login-field select {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid #cfcfcf;
+    padding: 12px 6px;
+    font-size: 16px;
+    background: transparent;
+    outline: none;
+    transition: border-color 0.2s ease;
+    font-family: inherit;
+}
+
+.login-field input:focus,
+.login-field select:focus {
+    border-bottom-color: #222;
+}
+
+.login-field input:disabled,
+.login-field select:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.field-error {
+    color: #ff4444;
+    font-size: 12px;
+    margin-top: 4px;
+    min-height: 16px;
+    transition: all 0.3s ease;
+}
+
+.login-submit {
+    margin-top: 8px;
+    background: #222;
+    color: #fff;
+    border: 0;
+    border-radius: 30px;
+    padding: 12px 18px;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: 'Montserrat Alternates', sans-serif;
+    min-width: 120px;
+    transition: background-color 0.2s ease;
+}
+
+.login-submit:active:not(:disabled) {
+    background: #111;
+}
+
+.login-submit:disabled {
+    background: #666;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.login-forgot {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.login-forgot:hover {
+    color: #222;
+    text-decoration: underline;
+}
+
+.login-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.login-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.login-error {
+    margin-top: 16px;
+    padding: 12px;
+    background-color: #fff5f5;
+    border: 1px solid #ffcccc;
+    border-radius: 8px;
+    color: #ff4444;
+    font-size: 14px;
+    text-align: center;
+    display: none;
+    transition: all 0.3s ease;
+}
+
+/* Адаптивность для больших экранов */
+@media (max-width: 1600px) {
+    .login-canvas {
+        padding: 120px 50px;
+    }
+    
+    .login-layout {
+        gap: 120px;
+        max-width: 1340px;
+    }
+    
+    .login-image {
+        width: 800px;
+        height: 450px;
+        flex: 0 0 800px;
+    }
+}
+
+@media (max-width: 1400px) {
+    .login-canvas {
+        padding: 100px 40px;
+    }
+    
+    .login-layout {
+        gap: 80px;
+        max-width: 1200px;
+    }
+    
+    .login-image {
+        width: 700px;
+        height: 400px;
+        flex: 0 0 700px;
+    }
+    
+    .login-form {
+        width: 380px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .login-canvas {
+        padding: 80px 30px;
+    }
+    
+    .login-layout {
+        gap: 60px;
+        max-width: 1000px;
+    }
+    
+    .login-image {
+        width: 600px;
+        height: 340px;
+        flex: 0 0 600px;
+    }
+    
+    .login-form {
+        width: 340px;
+    }
+    
+    .login-title {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .login-canvas {
+        padding: 60px 25px;
+    }
+    
+    .login-layout {
+        gap: 40px;
+        max-width: 900px;
+    }
+    
+    .login-image {
+        width: 500px;
+        height: 284px;
+        flex: 0 0 500px;
+    }
+    
+    .login-form {
+        width: 320px;
+    }
+}
+
+/* Планшеты - скрываем изображение */
+@media (max-width: 900px) {
+    .login-canvas {
+        padding: 50px 20px;
+    }
+    
+    .login-layout {
+        justify-content: center;
+    }
+    
+    .login-image {
+        display: none;
+    }
+    
+    .login-form {
+        width: 100%;
+        max-width: 500px;
+        padding: 40px;
+        background: #FDFDFD;
+        border-radius: 25px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    
+    .login-title {
+        text-align: center;
+        font-size: 30px;
+    }
+    
+    .login-sub {
+        text-align: center;
+    }
+    
+    .login-actions {
+        justify-content: center;
+    }
+    
+    .login-links {
+        align-items: center;
+    }
+}
+
+/* Мобильные устройства среднего размера */
+@media (max-width: 600px) {
+    .login-canvas {
+        padding: 40px 15px;
+    }
+    
+    .login-form {
+        padding: 30px 25px;
+        border-radius: 20px;
+    }
+    
+    .login-title {
+        font-size: 28px;
+    }
+    
+    .login-sub {
+        font-size: 15px;
+    }
+    
+    .login-field input,
+    .login-field select {
+        padding: 10px 6px;
+        font-size: 15px;
+    }
+    
+    .login-submit {
+        padding: 10px 16px;
+        font-size: 15px;
+    }
+    
+    .login-forgot {
+        font-size: 13px;
+        text-align: center;
+        white-space: normal;
+    }
+    
+    .login-actions {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+    
+    .login-submit {
+        width: 100%;
+    }
+    
+    .login-links {
+        align-items: center;
+    }
+    
+    .field-error {
+        font-size: 11px;
+    }
+    
+    .login-error {
+        font-size: 13px;
+        padding: 10px;
+    }
+}
+
+/* Маленькие мобильные устройства */
+@media (max-width: 400px) {
+    .login-canvas {
+        padding: 30px 10px;
+    }
+    
+    .login-form {
+        padding: 25px 20px;
+        border-radius: 18px;
+    }
+    
+    .login-title {
+        font-size: 26px;
+    }
+    
+    .login-sub {
+        font-size: 14px;
+    }
+    
+    .login-field input,
+    .login-field select {
+        padding: 8px 6px;
+        font-size: 14px;
+    }
+    
+    .login-submit {
+        padding: 9px 14px;
+        font-size: 14px;
+    }
+    
+    .login-forgot {
+        font-size: 12px;
+    }
+    
+    .field-error {
+        font-size: 10px;
+    }
+    
+    .login-error {
+        font-size: 12px;
+    }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 320px) {
+    .login-form {
+        padding: 20px 15px;
+        border-radius: 15px;
+    }
+    
+    .login-title {
+        font-size: 24px;
+    }
+    
+    .login-sub {
+        font-size: 13px;
+    }
+    
+    .login-field input,
+    .login-field select {
+        padding: 7px 5px;
+        font-size: 13px;
+    }
+    
+    .login-submit {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+    
+    .login-forgot {
+        font-size: 11px;
+    }
+    
+    .field-error {
+        font-size: 9px;
+    }
+    
+    .login-error {
+        font-size: 11px;
+        padding: 8px;
+    }
+}

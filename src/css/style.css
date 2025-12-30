@@ -1,0 +1,21 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Всегда резервируем место под вертикальный скроллбар, чтобы избежать сдвигов layout
+   при появлении/скрытии блоков (фильтров), которые меняют высоту страницы. */
+html {
+    overflow-y: scroll;
+}
+
+body {
+    font-family: Inter, system-ui, Arial, sans-serif;
+    background: #F5F5F5;
+    color: #333;
+    line-height: 1.6;
+    /* Современный способ резервирования места для скроллбара */
+    scrollbar-gutter: stable;
+}
+
