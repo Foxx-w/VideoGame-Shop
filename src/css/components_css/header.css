@@ -243,6 +243,21 @@
     }
 }
 
+/* Применить ту же анимацию, что и у иконки корзины, для кнопки входа */
+.user-btn.user-has-items .user-icon {
+    animation: cartPulse 3s infinite;
+}
+
+/* При нажатии — одноразовая быстрая версия той же анимации (микроанимация) */
+.user-btn:active .user-icon {
+    animation: cartPulse 0.36s ease 1;
+}
+
+/* То же микронажатие для кнопки корзины */
+.cart-btn:active .cart-icon {
+    animation: cartPulse 0.36s ease 1;
+}
+
 /* ========== АДАПТИВНОСТЬ ========== */
 
 /* Большие экраны (менее 1600px) */

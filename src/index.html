@@ -144,16 +144,17 @@
                         min="0" step="1" id="max-price" />
                 </label>
 
-                <!-- Кнопка сброса фильтра -->
-                <button class="reset-filter-btn" id="reset-filter" aria-label="Сбросить фильтр" title="Сбросить фильтр">
-                    ×
+                <!-- Кнопка применения фильтра (переставлена на место сброса) -->
+                <button class="pf-btn" id="apply-filter" aria-label="Применить фильтр">
+                    <span class="btn-text">Готово</span>
+                    <span class="success-icon">✓</span>
+                    <span class="loader"></span>
                 </button>
             </div>
 
-            <button class="pf-btn" id="apply-filter" aria-label="Применить фильтр">
-                <span class="btn-text">Готово</span>
-                <span class="success-icon">✓</span>
-                <span class="loader"></span>
+            <!-- Кнопка сброса фильтра (перемещена после полей) -->
+            <button class="reset-filter-btn" id="reset-filter" aria-label="Сбросить фильтр" title="Сбросить фильтр">
+                ×
             </button>
         </div>
 

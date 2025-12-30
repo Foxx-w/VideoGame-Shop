@@ -323,6 +323,16 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
+/* Скрыть отображение диапазона фильтра и количества найденных предметов */
+.filter-info {
+    display: none !important;
+}
+
+/* Скрыть кнопку сброса фильтра */
+.reset-filter-btn {
+    display: none !important;
+}
+
 .filter-text {
     font-weight: 600;
     color: #A53DFF;
