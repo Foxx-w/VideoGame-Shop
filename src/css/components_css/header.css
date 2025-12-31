@@ -6,6 +6,10 @@
     background: #222222;
     z-index: 1000;
     transition: all 0.3s ease;
+    /* Добавляем фиксированное позиционирование */
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 .header-inner {
@@ -22,6 +26,11 @@
     margin: 0 auto;
     background: transparent;
     transition: all 0.3s ease;
+}
+
+/* Добавляем отступ для основного контента, чтобы он не скрывался под фиксированным хедером */
+body {
+    padding-top: 164px;
 }
 
 /* Левый блок с логотипом */
@@ -260,27 +269,12 @@
 
 /* ========== АДАПТИВНОСТЬ ========== */
 
-/* Большие экраны (менее 1600px) */
-@media (max-width: 1600px) {
-    .header-inner {
-        padding: 0 100px;
-    }
-    
-    .logo-text {
-        font-size: 58px;
-    }
-    
-    .search-wrap {
-        width: 380px;
-    }
-    
-    .header-right {
-        gap: 30px;
-    }
-}
-
-/* Средние экраны (менее 1440px) */
+/* Обновляем отступы для body при адаптивных размерах хедера */
 @media (max-width: 1440px) {
+    body {
+        padding-top: 140px;
+    }
+    
     .header-inner {
         padding: 0 70px;
         height: 140px;
@@ -329,8 +323,11 @@
     }
 }
 
-/* Планшеты горизонтальные (менее 1280px) */
 @media (max-width: 1280px) {
+    body {
+        padding-top: 130px;
+    }
+    
     .header-inner {
         padding: 0 50px;
         height: 130px;
@@ -377,8 +374,11 @@
     }
 }
 
-/* Планшеты горизонтальные (менее 1100px) */
 @media (max-width: 1100px) {
+    body {
+        padding-top: 120px;
+    }
+    
     .header-inner {
         padding: 0 40px;
         height: 120px;
@@ -407,8 +407,35 @@
     }
 }
 
+/* Большие экраны (менее 1600px) */
+@media (max-width: 1600px) {
+    .header-inner {
+        padding: 0 100px;
+    }
+    
+    .logo-text {
+        font-size: 58px;
+    }
+    
+    .search-wrap {
+        width: 380px;
+    }
+    
+    .header-right {
+        gap: 30px;
+    }
+}
+
 /* Переход к мобильному виду (менее 1024px) */
 @media (max-width: 1024px) {
+    body {
+        padding-top: 0; /* На мобильных хедер не фиксированный */
+    }
+    
+    .site-header {
+        position: relative; /* На мобильных убираем фиксированное позиционирование */
+    }
+    
     .header-inner {
         height: auto;
         padding: 15px 30px;
@@ -681,4 +708,3 @@
 .user-btn.active {
     color: #A53DFF;
 }
-

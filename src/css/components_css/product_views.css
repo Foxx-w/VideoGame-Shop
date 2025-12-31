@@ -1,0 +1,612 @@
+/* product_view.css - стили для модального окна просмотра товара */
+
+/* Модальное окно */
+.modal-overlay.view {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 0;
+    overflow: hidden;
+}
+
+.modal-overlay.view.active {
+    display: flex;
+}
+
+.product-view-modal {
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.product-view-details {
+    width: 1505px;
+    max-width: calc(100vw - 40px); /* Урезаем по краям */
+    height: auto;
+    max-height: 865px;
+    background: #EFEFEF;
+    border: 8px solid #A53DFF;
+    border-radius: 30px;
+    display: flex;
+    gap: 60px; /* ДОБАВЛЕНО: Большой отступ между секциями */
+    padding: 30px;
+    box-sizing: border-box;
+    font-family: 'Montserrat Alternates', sans-serif;
+    position: relative;
+    margin: 0 auto; /* Центрируем */
+}
+
+.view-main-image-wrapper {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  min-height: 400px;       
+}
+
+.view-main-image {
+    width: 850px;
+    height: 450px;
+    border-radius: 30px;
+    padding-bottom: 10px;
+}
+
+.photo-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #E6E6E6;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.photo-placeholder.large {
+    background: #E6E6E6;
+}
+
+.no-image-text {
+    color: #999;
+    font-size: 24px;
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.view-description-box {
+    width: 100%;
+    background: transparent;
+}
+
+.view-description-text {
+    width: 100%;
+    height: 115px;
+    padding: 12px;
+    border-radius: 15px;
+    background: #E6E6E6;
+    font-size: 20px;
+    font-family: 'Montserrat Alternates', sans-serif;
+    border: none;
+    box-sizing: border-box;
+    overflow-y: auto;
+    resize: none;
+    color: #333;
+    line-height: 1.5;
+}
+
+.view-price-section {
+    margin-top: 10px;
+    background: transparent;
+    padding: 0;
+    width: 30%;
+}
+
+.view-price-value {
+    height: 113px;
+    border-radius: 15px;
+    font-size: 64px;
+    color: #A53DFF;
+    background: #E6E6E6;
+    font-family: 'Montserrat Alternates', sans-serif;
+    display: flex;
+    font-weight: bold;
+    justify-content: center;
+}
+
+.field-label {
+    display: block;
+    margin-bottom: 6px;
+    color: #666;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+}
+
+/* Правая секция */
+.view-right-section {
+    flex: 0 0 420px; /* Увеличил с 372px до 420px */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    position: relative;
+}
+
+.view-right-section::before {
+    content: '';
+    position: absolute;
+    left: -30px; 
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: #D0D0D0;
+}
+
+.view-title {
+    width: 100%;
+    height: 73px;
+    border-radius: 15px;
+    background: #E6E6E6;
+    font-size: 28px;
+    color: #A53DFF;
+    box-sizing: border-box;
+    text-align: center;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: bold;
+    border: none;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.view-seller-info {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    margin-top: 8px;
+}
+
+
+.seller-label{
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 16px;
+    color: #666;
+    font-weight: 600;
+}
+
+.seller-name{
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 16px;
+    color: #444;
+    font-weight: 600;
+}
+
+.specs {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 0;
+    border-radius: 15px;
+    width: 100%;
+    align-items: center;
+}
+
+.spec-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.spec-label {
+    padding: 0;
+    width: 100%;
+    color: #666;
+    font-weight: 600;
+    text-align: center;
+}
+
+.spec-value {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: #E6E6E6;
+    font-size: 16px;
+    font-family: 'Montserrat Alternates', sans-serif;
+    box-sizing: border-box;
+    color: #000;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Стили для отображения выбранных жанров */
+.view-genres-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    max-height: 120px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: 8px;
+    background: #E6E6E6;
+    border-radius: 10px;
+    margin-top: 8px;
+    width: 100%;
+}
+
+.view-genre-tag {
+    background: #f3f0ff;
+    color: #6b21a8;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 13px;
+    display: inline-block;
+    margin: 0 0 8px 0;
+}
+
+/* Кнопки действий */
+.view-buttons-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    margin-top: auto;
+    width: 100%;
+}
+
+.view-btn {
+    width: 100%;
+    max-width: 435px;
+    height: 80px;
+    border: none;
+    border-radius: 15px;
+    font-size: 32px;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.view-btn-cart {
+    background: #A53DFF;
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(165,61,255,0.25);
+}
+
+.view-btn-cart:hover:not(:disabled) {
+    background: #8B1FD9;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(165,61,255,0.35);
+}
+
+.view-btn-back {
+    background: #0962C9;
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(9,98,201,0.25);
+}
+
+.view-btn-back:hover:not(:disabled) {
+    background: #0850A8;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(9,98,201,0.35);
+}
+
+.view-btn:active:not(:disabled) {
+    transform: translateY(3px) scale(0.995);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+.view-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Адаптивность модального окна */
+@media (max-width: 1600px) {
+    .product-view-details {
+        width: calc(100vw - 60px); /* Урезаем больше по краям */
+        padding: 20px;
+        gap: 50px; /* Уменьшаем gap */
+    }
+    
+    .view-left-section {
+        flex: 1;
+    }
+    
+    .view-right-section {
+        flex: 0 0 380px; /* Адаптированный размер для 1600px */
+    }
+    
+    .view-right-section::before {
+        left: -25px; /* Адаптируем позицию линии под новый gap */
+    }
+    
+    .view-main-image-wrapper {
+        height: 350px;
+    }
+}
+
+@media (max-width: 1400px) {
+    .product-view-details {
+        width: calc(100vw - 80px); /* Еще больше урезаем */
+        padding: 15px;
+        gap: 40px; /* Уменьшаем gap */
+    }
+    
+    .view-left-section {
+        padding-right: 0;
+    }
+    
+    .view-right-section {
+        flex: 0 0 350px; /* Адаптированный размер для 1400px */
+    }
+    
+    .view-right-section::before {
+        left: -20px; /* Адаптируем позицию линии под новый gap */
+    }
+    
+    .view-main-image-wrapper {
+        height: 320px;
+        min-height: 300px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .product-view-details {
+        flex-direction: column;
+        width: calc(100vw - 40px);
+        max-height: 90vh;
+        padding: 20px;
+        gap: 20px; /* Становится вертикальным gap */
+    }
+    
+    .view-left-section,
+    .view-right-section {
+        width: 100%;
+        flex: none;
+        padding: 0;
+    }
+    
+    .view-right-section::before {
+        display: none; /* Убираем вертикальную линию на мобильных */
+    }
+    
+    .view-left-section {
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #D0D0D0; /* Горизонтальная линия вместо вертикальной */
+    }
+    
+    .view-right-section {
+        padding-top: 20px;
+        border-top: 1px solid #D0D0D0; /* Вторая горизонтальная линия для симметрии */
+    }
+    
+    .view-main-image-wrapper {
+        height: 300px;
+        min-height: 250px;
+    }
+}
+
+@media (max-width: 992px) {
+    .product-view-details {
+        width: calc(100vw - 30px);
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    .view-price-value {
+        font-size: 48px;
+        height: 80px;
+    }
+    
+    .view-title {
+        font-size: 24px;
+        height: 60px;
+    }
+    
+    .view-btn {
+        height: 60px;
+        font-size: 24px;
+    }
+    
+    .view-left-section {
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .view-right-section {
+        padding-top: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-overlay.view {
+        padding: 10px;
+    }
+    
+    .product-view-details {
+        width: calc(100vw - 20px);
+        padding: 12px;
+        border-width: 4px;
+        gap: 12px;
+    }
+    
+    .view-left-section {
+        padding-bottom: 12px;
+        margin-bottom: 12px;
+    }
+    
+    .view-right-section {
+        padding-top: 12px;
+    }
+    
+    .view-main-image-wrapper {
+        height: 250px;
+        min-height: 200px;
+        border-radius: 20px;
+    }
+    
+    .view-price-value {
+        font-size: 36px;
+        height: 70px;
+        justify-content: center;
+        padding-left: 0;
+    }
+    
+    .view-title {
+        font-size: 20px;
+        height: 50px;
+    }
+    
+    .view-btn {
+        height: 50px;
+        font-size: 20px;
+    }
+    
+    .view-close-modal {
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+    }
+    
+    .view-description-text {
+        font-size: 16px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-view-details {
+        width: calc(100vw - 16px);
+        padding: 10px;
+        border-width: 3px;
+        border-radius: 20px;
+        gap: 10px;
+    }
+    
+    .view-main-image-wrapper {
+        height: 200px;
+        border-radius: 15px;
+    }
+    
+    .view-title {
+        font-size: 18px;
+        height: 45px;
+    }
+    
+    .view-btn {
+        height: 45px;
+        font-size: 18px;
+    }
+    
+    .spec-label {
+        font-size: 14px;
+    }
+    
+    .spec-value {
+        font-size: 14px;
+        padding: 10px;
+    }
+    
+    .view-price-value {
+        font-size: 32px;
+        height: 60px;
+    }
+    
+    .view-description-text {
+        font-size: 14px;
+        height: 80px;
+    }
+    
+    .view-left-section {
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+    }
+    
+    .view-right-section {
+        padding-top: 10px;
+    }
+}
+
+@media (max-width: 360px) {
+    .product-view-details {
+        width: calc(100vw - 12px);
+        padding: 8px;
+        gap: 8px;
+    }
+    
+    .view-main-image-wrapper {
+        height: 180px;
+    }
+    
+    .view-title {
+        font-size: 16px;
+        height: 40px;
+    }
+    
+    .view-btn {
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    .view-left-section {
+        padding-bottom: 8px;
+        margin-bottom: 8px;
+    }
+    
+    .view-right-section {
+        padding-top: 8px;
+    }
+}
+
+/* Убираем скроллбар в некоторых браузерах */
+.product-view-modal::-webkit-scrollbar {
+    width: 6px;
+}
+
+.product-view-modal::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.product-view-modal::-webkit-scrollbar-thumb {
+    background: #A53DFF;
+    border-radius: 3px;
+}
+
+.product-view-modal::-webkit-scrollbar-thumb:hover {
+    background: #8B1FD9;
+}

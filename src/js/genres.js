@@ -27,7 +27,7 @@ const genresData = [
 // Экспортим данные в глобальную область, чтобы другие модули могли получить метки
 window.genresData = genresData;
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   // Элементы
   const genresBtn = document.querySelector('.genres-btn');
   const genresOverlay = document.getElementById('genresOverlay');
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const activeFilters = document.getElementById('activeFilters');
   const filterTags = document.getElementById('filterTags');
   const clearAllFiltersBtn = document.getElementById('clearAllFiltersBtn');
-  
+
   // Состояние
   let selectedGenres = [];
 
@@ -49,18 +49,18 @@ document.addEventListener('DOMContentLoaded', function() {
   // Обработчики событий (подключаем только если элементы есть)
   if (genresBtn) genresBtn.addEventListener('click', openGenresMenu);
   if (closeGenresBtn) closeGenresBtn.addEventListener('click', closeGenresMenu);
-  
+
   // Закрытие по клику вне меню
   if (genresOverlay) {
-    genresOverlay.addEventListener('click', function(e) {
+    genresOverlay.addEventListener('click', function (e) {
       if (e.target === genresOverlay) {
         closeGenresMenu();
       }
     });
   }
-  
+
   // Закрытие по Escape
-  document.addEventListener('keydown', function(e) {
+  document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && genresOverlay && genresOverlay.style.display === 'flex') {
       closeGenresMenu();
     }
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function initializeGenresMenu() {
     if (!genresList) return;
     genresList.innerHTML = '';
-    
+
     // Добавляем все жанры в один список
     genresData.forEach(genre => {
       const genreElement = createGenreElement(genre);
@@ -91,28 +91,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const div = document.createElement('div');
     div.className = 'genre-item';
     div.dataset.id = genre.id;
-    
+
     div.innerHTML = `
       <input type="checkbox" class="genre-checkbox" id="genre-${genre.id}">
       <span class="genre-label">${genre.label}</span>
     `;
-    
+
     const checkbox = div.querySelector('.genre-checkbox');
-    
-    checkbox.addEventListener('change', function() {
+
+    checkbox.addEventListener('change', function () {
       toggleGenre(genre.id, this.checked);
       updateGenreItemState(div, this.checked);
     });
-    
+
     // Клик на весь элемент тоже переключает чекбокс
-    div.addEventListener('click', function(e) {
+    div.addEventListener('click', function (e) {
       if (e.target !== checkbox) {
         checkbox.checked = !checkbox.checked;
         toggleGenre(genre.id, checkbox.checked);
         updateGenreItemState(div, checkbox.checked);
       }
     });
-    
+
     return div;
   }
 
@@ -135,17 +135,17 @@ document.addEventListener('DOMContentLoaded', function() {
         selectedGenres.splice(index, 1);
       }
     }
-    
+
     updateUI();
   }
 
   function updateUI() {
     // Обновляем кнопку "Сбросить"
     if (clearGenresBtn) clearGenresBtn.disabled = selectedGenres.length === 0;
-    
+
     // Обновляем кнопку "Применить"
     if (applyGenresBtn) applyGenresBtn.textContent = `Применить (${selectedGenres.length})`;
-    
+
     // Обновляем чекбоксы
     selectedGenres.forEach(genreId => {
       const checkbox = document.querySelector(`#genre-${genreId}`);
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
     });
-    
+
     // Снимаем невыбранные
     genresData.forEach(genre => {
       if (!selectedGenres.includes(genre.id)) {
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
     genresOverlay.style.display = 'flex';
     document.body.style.overflow = 'hidden';
     if (genresBtn) genresBtn.classList.add('active');
-    
+
     // Загружаем сохраненные выборы
     loadSavedFilters();
   }
@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
     saveFiltersToStorage();
     updateActiveFilters();
     closeGenresMenu();
-    
+
     // Здесь будет логика фильтрации товаров
     console.log('Применены фильтры:', selectedGenres);
     filterProductsByGenres();
@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     activeFilters.classList.remove('hidden');
     filterTags.innerHTML = '';
-    
+
     selectedGenres.forEach(genreId => {
       const genre = genresData.find(g => g.id === genreId);
       if (genre) {
@@ -237,14 +237,14 @@ document.addEventListener('DOMContentLoaded', function() {
             ×
           </button>
         `;
-        
+
         filterTags.appendChild(tag);
       }
     });
-    
+
     // Добавляем обработчики для кнопок удаления
     document.querySelectorAll('.remove-filter').forEach(btn => {
-      btn.addEventListener('click', function() {
+      btn.addEventListener('click', function () {
         const genreId = this.dataset.id;
         removeGenreFilter(genreId);
       });
@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (index > -1) {
       selectedGenres.splice(index, 1);
     }
-    
+
     saveFiltersToStorage();
     updateUI();
     updateActiveFilters();
@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function filterProductsByGenres() {
     // Временная заглушка для демонстрации
     // В реальном приложении здесь будет запрос к API или фильтрация существующих товаров
-    
+
     if (selectedGenres.length === 0) {
       console.log('Показываем все товары');
       // Показать все товары
@@ -304,7 +304,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Здесь будет реальная фильтрация
       // Временно скрываем/показываем товары для демонстрации
     }
-    
+
     // Обновляем информацию о фильтре
     updateFilterInfo();
   }
@@ -314,13 +314,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!filterInfo) return;
     const filterRange = filterInfo.querySelector('.filter-range');
     const filterCount = filterInfo.querySelector('.filter-count');
-    
+
     if (selectedGenres.length > 0) {
       const genreLabels = selectedGenres.map(id => {
         const genre = genresData.find(g => g.id === id);
         return genre ? genre.label : id;
       }).join(', ');
-      
+
       if (filterRange) filterRange.textContent = `жанры: ${genreLabels}`;
     } else {
       // Здесь можно получить значения из фильтра цены
@@ -330,8 +330,50 @@ document.addEventListener('DOMContentLoaded', function() {
       const maxPrice = (maxEl && maxEl.value) ? maxEl.value : '10 000';
       if (filterRange) filterRange.textContent = `от ${minPrice} до ${maxPrice} ₽`;
     }
-    
-    // Здесь можно обновить количество найденных товаров
-    // filterCount.textContent = `(найдено X товаров)`;
+
+    // Функция для применения фильтров (вызывается из пагинации)
+    function applyGenreFilters() {
+      // Сохраняем фильтры
+      saveFiltersToStorage();
+      updateActiveFilters();
+
+      // Загружаем первую страницу с новыми фильтрами
+      if (window.Pagination && window.Pagination.loadPage) {
+        window.Pagination.loadPage(1);
+      } else {
+        // Если пагинация не загружена, используем обычную фильтрацию
+        filterProductsByGenres();
+      }
+    }
+
+    // Обновляем функцию applyFilters
+    function applyFilters() {
+      applyGenreFilters();
+      closeGenresMenu();
+    }
+
+    // Обновляем функцию removeGenreFilter
+    function removeGenreFilter(genreId) {
+      const index = selectedGenres.indexOf(genreId);
+      if (index > -1) {
+        selectedGenres.splice(index, 1);
+      }
+
+      saveFiltersToStorage();
+      updateUI();
+      updateActiveFilters();
+
+      // Применяем фильтры
+      applyGenreFilters();
+    }
+
+    // Обновляем функцию clearAllFilters
+    function clearAllFilters() {
+      selectedGenres = [];
+      saveFiltersToStorage();
+      updateUI();
+      updateActiveFilters();
+      applyGenreFilters();
+    }
   }
 });

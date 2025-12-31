@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +10,15 @@
     <link rel="stylesheet" href="css/components_css/header.css">
     <link rel="stylesheet" href="css/components_css/footer.css">
     <link rel="stylesheet" href="css/components_css/product_cards.css">
+    <link rel="stylesheet" href="css/components_css/product_views.css">
+    <link rel="stylesheet" href="css/components_css/menu.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
+
     <header class="site-header" role="banner" aria-label="Главная шапка">
         <div class="header-inner">
             <div class="header-left">
@@ -27,7 +29,6 @@
 
             <div class="header-center">
                 <button class="genres-btn" aria-label="Жанры">
-                    <!-- SVG иконка меню жанров -->
                     <svg class="icon genres-icon" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg"
                         aria-hidden="true">
                         <path
@@ -38,7 +39,6 @@
 
                 <div class="search-wrap">
                     <div class="search-inline">
-                        <!-- SVG иконка поиска -->
                         <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path
                                 d="M15.7832 14.3911L20 18.6069L18.6069 20L14.3911 15.7832C12.8224 17.0407 10.8713 17.7246 8.86088 17.7246C3.96968 17.7246 0 13.7549 0 8.86232C0 3.96968 3.96968 0 8.86088 0C13.7521 0 17.7218 3.96968 17.7218 8.86232C17.7218 10.8727 17.0378 12.8238 15.7803 14.3925L15.7832 14.3911ZM8.86088 15.8424C12.1917 15.8424 14.8871 13.147 14.8871 9.81623C14.8871 6.48547 12.1917 3.7901 8.86088 3.7901C5.53011 3.7901 2.83475 6.48547 2.83475 9.81623C2.83475 13.147 5.53011 15.8424 8.86088 15.8424Z"
@@ -50,8 +50,7 @@
             </div>
 
             <div class="header-right">
-                <a href="" class="action-btn cart-btn">
-                    <!-- SVG иконка корзины -->
+                <a href="cart.html" class="action-btn cart-btn">
                     <svg class="icon cart-icon" viewBox="59 55 28 29" xmlns="http://www.w3.org/2000/svg"
                         aria-hidden="true">
                         <path
@@ -61,19 +60,104 @@
                     <span class="action-label">Корзина</span>
                 </a>
 
-                <button type="button" class="action-btn user-btn">
-                    <!-- SVG иконка пользователя -->
+                <button type="button" class="action-btn user-btn" id="userMenuBtn">
                     <svg class="icon user-icon" viewBox="107 56 26 28" xmlns="http://www.w3.org/2000/svg"
                         aria-hidden="true">
                         <path
                             d="M120 70C121.97 70 123.86 69.2625 125.253 67.9497C126.646 66.637 127.429 64.8565 127.429 63C127.429 61.1435 126.646 59.363 125.253 58.0503C123.86 56.7375 121.97 56 120 56C118.03 56 116.14 56.7375 114.747 58.0503C113.354 59.363 112.571 61.1435 112.571 63C112.571 64.8565 113.354 66.637 114.747 67.9497C116.14 69.2625 118.03 70 120 70ZM117.348 72.625C111.631 72.625 107 76.9891 107 82.3758C107 83.2727 107.772 84 108.724 84H131.276C132.228 84 133 83.2727 133 82.3758C133 76.9891 128.369 72.625 122.652 72.625H117.348Z"
                             fill="currentColor" />
                     </svg>
-                    <span class="action-label">Войти</span>
+                    <span class="action-label" id="userMenuLabel">Войти</span>
                 </button>
             </div>
         </div>
     </header>
+
+    <!-- Контейнер для меню -->
+    <div class="menu-fixed-container" id="menuContainer">
+
+        <!-- Меню гостя -->
+        <div id="guestMenu" class="menu-overlay">
+            <div class="menu-container guest-menu" role="dialog" aria-label="Меню неавторизованного пользователя" aria-modal="true">
+                <button class="menu-button" onclick="window.location.href='/'">
+                    <img src="assets/icons/buy.svg" alt="" class="menu-icon" aria-hidden="true" />
+                    <span>Главная</span>
+                </button>
+                
+                <button class="menu-button" onclick="window.location.href='login.html'">
+                    <img src="assets/icons/user.svg" alt="" class="menu-icon" aria-hidden="true" />
+                    <span>Вход в аккаунт</span>
+                </button>
+                
+                <button class="menu-button" onclick="window.location.href='register.html'">
+                    <img src="assets/icons/registration.svg" alt="" class="menu-icon" aria-hidden="true" />
+                    <span>Регистрация</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Меню пользователя -->
+        <div id="userMenu" class="menu-overlay">
+            <div class="menu-container user-menu" role="dialog" aria-label="Меню пользователя" aria-modal="true">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">П</div>
+                    <div class="user-details">
+                        <div class="user-name" id="userName">Пользователь</div>
+                        <div class="user-email" id="userEmail"></div>
+                        <div class="user-role" id="userRole">Покупатель</div>
+                    </div>
+                </div>
+                
+                <nav class="user-nav">
+                    <button class="menu-button" onclick="window.location.href='/'">
+                        <img src="assets/icons/buy.svg" alt="" class="menu-icon" aria-hidden="true" />
+                        <span>Главная</span>
+                    </button>
+                    
+                    <button class="menu-button" onclick="window.location.href='orders.html'">
+                        <img src="assets/icons/history.svg" alt="" class="menu-icon" aria-hidden="true" />
+                        <span>История покупок</span>
+                    </button>
+                    
+                    <button class="menu-button" onclick="logout()">
+                        <img src="assets/icons/logout.svg" alt="" class="menu-icon" aria-hidden="true" />
+                        <span>Выйти</span>
+                    </button>
+                </nav>
+
+                
+            </div>
+        </div>
+
+        <!-- Меню продавца -->
+        <div id="sellerMenu" class="menu-overlay">
+            <div class="menu-container seller-menu" role="dialog" aria-label="Меню продавца" aria-modal="true">
+
+                <nav class="sellerMenu">
+                    <button class="menu-button" onclick="window.location.href='/'">
+                        <img src="assets/icons/buy.svg" alt="" class="menu-icon" aria-hidden="true" />
+                        <span>Главная</span>
+                    </button>
+                    
+                    <button class="menu-button" onclick="window.location.href='orders.html'">
+                        <img src="assets/icons/history.svg" alt="" class="menu-icon" aria-hidden="true" />
+                        <span>История покупок</span>
+                    </button>
+
+                    <button class="menu-button" onclick="window.location.href='seller.html'">
+                        <img src="assets/icons/product.svg" alt="" class="menu-icon" aria-hidden="true" />
+                        <span>Товары</span>
+                    </button>
+                    
+                    <button class="menu-button" onclick="logout()">
+                        <img src="assets/icons/logout.svg" alt="" class="menu-icon" aria-hidden="true" />
+                        <span>Выйти</span>
+                    </button>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
 
     <main class="home-canvas" role="main" aria-label="Главная страница">
 
@@ -144,7 +228,7 @@
                         min="0" step="1" id="max-price" />
                 </label>
 
-                <!-- Кнопка применения фильтра (переставлена на место сброса) -->
+                <!-- Кнопка применения фильтра -->
                 <button class="pf-btn" id="apply-filter" aria-label="Применить фильтр">
                     <span class="btn-text">Готово</span>
                     <span class="success-icon">✓</span>
@@ -152,7 +236,7 @@
                 </button>
             </div>
 
-            <!-- Кнопка сброса фильтра (перемещена после полей) -->
+            <!-- Кнопка сброса фильтра -->
             <button class="reset-filter-btn" id="reset-filter" aria-label="Сбросить фильтр" title="Сбросить фильтр">
                 ×
             </button>
@@ -187,17 +271,17 @@
 
             <!-- Карточки товаров будут добавляться через JavaScript -->
 
-            <div class="product-card" role="button" tabindex="0">
+            <!-- Карточка товара 1 -->
+            <div class="product-card" data-product-id="1" role="button" tabindex="0">
                 <div class="product-image-wrapper">
-                    <img src="https://via.placeholder.com/180x245" alt="Название товара" class="product-image">
+                    <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60"
+                        alt="Cyberpunk 2077" class="product-image" loading="lazy">
                 </div>
-
-                <div class="product-info">
-                    <h3 class="product-name">name</h3>
-                    <div class="product-price">Rub.</div>
+                <div class="product-card-content">
+                    <h3 class="product-title">Cyberpunk 2077</h3>
+                    <div class="product-price">2 499 ₽</div>
                 </div>
-
-                <button class="add-to-cart-btn" aria-label="Добавить в корзину">
+                <button class="add-to-cart-btn" aria-label="Добавить в корзину" onclick="event.stopPropagation()">
                     <span class="btn-text">В корзину</span>
                     <span class="btn-icon">✓</span>
                 </button>
@@ -248,17 +332,75 @@
             </div>
         </div>
 
-        <!-- Модальное окно деталей товара -->
-        <div class="modal-overlay" id="product-modal" style="display: none;">
-            <div class="modal-content">
-                <button class="modal-close" id="close-modal">
-                    <i class="fas fa-times"></i>
-                </button>
-                <div class="modal-body" id="modal-body">
-                    <!-- Контент модального окна будет загружаться через JS -->
-                    <div class="modal-loading">
-                        <div class="spinner"></div>
-                        <p>Загрузка информации об игре...</p>
+        <!-- Модальное окно просмотра товара -->
+        <div class="modal-overlay view" id="productViewOverlay">
+            <div class="product-view-modal">
+
+                <div class="product-view-details">
+                    <div class="view-left-section">
+                        <div class="view-main-image-wrapper">
+                            <div class="photo-placeholder large">
+                                <div class="no-image-text">Нет изображения</div>
+                            </div>
+                            <img class="view-main-image" id="viewMainImage" style="display: none;">
+                        </div>
+
+                        <div class="view-description-box">
+                            <label class="field-label">Описание:</label>
+                            <div class="view-description-text" id="viewDescription">
+                                Здесь будет описание товара...
+                            </div>
+                        </div>
+
+                        <div class="view-price-section">
+                            <label class="field-label">Цена (₽):</label>
+                            <div class="view-price-value" id="viewPrice">price</div>
+                        </div>
+                    </div>
+
+                    <!-- Правая секция -->
+                    <div class="view-right-section">
+                        <div class="view-title" id="viewTitle">Название товара</div>
+
+                        <div class="view-seller-info">
+                            <span class="seller-label">Продавец:</span>
+                            <span class="seller-name" id="viewSellerName"></span>
+                        </div>
+
+                        <div class="specs">
+                            <div class="spec-row">
+                                <div class="spec-label">Разработчик:</div>
+                                <div class="spec-value" id="viewDeveloper">Не указано</div>
+                            </div>
+
+                            <div class="spec-row">
+                                <div class="spec-label">Издатель:</div>
+                                <div class="spec-value" id="viewPublisher">Не указано</div>
+                            </div>
+
+                            <div class="spec-row">
+                                <div class="spec-label">Жанры:</div>
+                                <div class="spec-value">
+                                    <div class="view-genres-container" id="viewGenresContainer"></div>
+                                </div>
+                            </div>
+
+                            <div class="spec-row">
+                                <div class="spec-label">Платформа:</div>
+                                <div class="spec-value" id="viewPlatform">PC</div>
+                            </div>
+
+                        </div>
+
+                        <div class="view-buttons-section">
+                            <button class="view-btn view-btn-cart" id="addToCartBtn">
+                                В корзину
+                            </button>
+
+                            <button class="view-btn view-btn-back" id="backToProductsBtn">
+                                Вернуться
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -281,7 +423,6 @@
                 <div class="footer-title">Мы в соцсетях</div>
                 <div class="footer-icons">
                     <a class="social-link" href="#" aria-label="Telegram">
-                        <!-- SVG иконка Telegram -->
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="58 112 29 26" class="social-svg"
                             fill="currentColor">
                             <path
@@ -291,7 +432,6 @@
                     </a>
 
                     <a class="social-link" href="#" aria-label="Вконтакте">
-                        <!-- SVG иконка ВКонтакте -->
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="107 116 28 18" class="social-svg"
                             fill="currentColor">
                             <path
@@ -304,8 +444,11 @@
         </div>
     </footer>
 
+    <script src="js/services/api.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/genres.js"></script>
-
+    <script src="js/product_views.js"></script>
+    
 </body>
-
 </html>
