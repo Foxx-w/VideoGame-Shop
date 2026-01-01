@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,7 +46,9 @@
                                 fill="currentColor" />
                         </svg>
                     </div>
-                    <input class="search-input" placeholder="Поиск" aria-label="Поиск" />
+                    <input class="search-input" placeholder="Поиск по названию игры..."
+                        aria-label="Поиск по названию игры" id="searchInput" />
+                    <button class="search-clear-btn" id="clearSearchBtn" ;">×</button>
                 </div>
             </div>
 
@@ -58,6 +61,7 @@
                             fill="currentColor" />
                     </svg>
                     <span class="action-label">Корзина</span>
+                    <span id="cartItemCount" class="cart-badge" style="display: none;"></span>
                 </a>
 
                 <button type="button" class="action-btn user-btn" id="userMenuBtn">
@@ -73,22 +77,23 @@
         </div>
     </header>
 
-    <!-- Контейнер для меню -->
+    <!-- Меню -->
     <div class="menu-fixed-container" id="menuContainer">
 
         <!-- Меню гостя -->
         <div id="guestMenu" class="menu-overlay">
-            <div class="menu-container guest-menu" role="dialog" aria-label="Меню неавторизованного пользователя" aria-modal="true">
-                <button class="menu-button" onclick="window.location.href='/'">
+            <div class="menu-container guest-menu" role="dialog" aria-label="Меню неавторизованного пользователя"
+                aria-modal="true">
+                <button class="menu-button" onclick="window.location.href='index.html'">
                     <img src="assets/icons/buy.svg" alt="" class="menu-icon" aria-hidden="true" />
                     <span>Главная</span>
                 </button>
-                
+
                 <button class="menu-button" onclick="window.location.href='login.html'">
                     <img src="assets/icons/user.svg" alt="" class="menu-icon" aria-hidden="true" />
                     <span>Вход в аккаунт</span>
                 </button>
-                
+
                 <button class="menu-button" onclick="window.location.href='register.html'">
                     <img src="assets/icons/registration.svg" alt="" class="menu-icon" aria-hidden="true" />
                     <span>Регистрация</span>
@@ -96,9 +101,9 @@
             </div>
         </div>
 
-        <!-- Меню пользователя -->
+        <!-- Меню покупателя -->
         <div id="userMenu" class="menu-overlay">
-            <div class="menu-container user-menu" role="dialog" aria-label="Меню пользователя" aria-modal="true">
+            <div class="menu-container user-menu" role="dialog" aria-label="Меню покупателя" aria-modal="true">
                 <div class="user-info">
                     <div class="user-avatar" id="userAvatar">П</div>
                     <div class="user-details">
@@ -107,54 +112,63 @@
                         <div class="user-role" id="userRole">Покупатель</div>
                     </div>
                 </div>
-                
+
                 <nav class="user-nav">
-                    <button class="menu-button" onclick="window.location.href='/'">
+                    <button class="menu-button" onclick="window.location.href='index.html'">
                         <img src="assets/icons/buy.svg" alt="" class="menu-icon" aria-hidden="true" />
                         <span>Главная</span>
                     </button>
-                    
+
                     <button class="menu-button" onclick="window.location.href='orders.html'">
                         <img src="assets/icons/history.svg" alt="" class="menu-icon" aria-hidden="true" />
-                        <span>История покупок</span>
+                        <span>История заказов</span>
                     </button>
-                    
+
+                    <button class="menu-button" onclick="window.location.href='cart.html'">
+                        <img src="assets/icons/shopping-cart.svg" alt="" class="menu-icon" aria-hidden="true" />
+                        <span>Корзина</span>
+                        <span id="cartItemCountMenu" class="menu-badge" style="display: none;"></span>
+                    </button>
+
                     <button class="menu-button" onclick="logout()">
                         <img src="assets/icons/logout.svg" alt="" class="menu-icon" aria-hidden="true" />
                         <span>Выйти</span>
                     </button>
                 </nav>
-
-                
             </div>
         </div>
 
         <!-- Меню продавца -->
         <div id="sellerMenu" class="menu-overlay">
             <div class="menu-container seller-menu" role="dialog" aria-label="Меню продавца" aria-modal="true">
+                <div class="user-info">
+                    <div class="user-avatar" id="sellerAvatar">П</div>
+                    <div class="user-details">
+                        <div class="user-name" id="sellerName">Продавец</div>
+                        <div class="user-email" id="sellerEmail"></div>
+                        <div class="user-role" id="sellerRole">Продавец</div>
+                        <div class="seller-stats">
+                            <span class="stat-item">Игр: <span id="sellerGamesCount">0</span></span>
+                        </div>
+                    </div>
+                </div>
 
-                <nav class="sellerMenu">
-                    <button class="menu-button" onclick="window.location.href='/'">
+                <nav class="seller-nav">
+                    <button class="menu-button" onclick="window.location.href='index.html'">
                         <img src="assets/icons/buy.svg" alt="" class="menu-icon" aria-hidden="true" />
                         <span>Главная</span>
-                    </button>
-                    
-                    <button class="menu-button" onclick="window.location.href='orders.html'">
-                        <img src="assets/icons/history.svg" alt="" class="menu-icon" aria-hidden="true" />
-                        <span>История покупок</span>
                     </button>
 
                     <button class="menu-button" onclick="window.location.href='seller.html'">
                         <img src="assets/icons/product.svg" alt="" class="menu-icon" aria-hidden="true" />
-                        <span>Товары</span>
+                        <span>Мои товары</span>
                     </button>
-                    
+
                     <button class="menu-button" onclick="logout()">
                         <img src="assets/icons/logout.svg" alt="" class="menu-icon" aria-hidden="true" />
                         <span>Выйти</span>
                     </button>
                 </nav>
-                
             </div>
         </div>
     </div>
@@ -220,12 +234,12 @@
                 <label class="pf-field">
                     <span class="pf-label">Цена от:</span>
                     <input class="pf-input" type="number" inputmode="numeric" pattern="\\d*" aria-label="Цена от"
-                        min="0" step="1" id="min-price" />
+                        min="0" step="0.01" id="min-price" />
                 </label>
                 <label class="pf-field">
                     <span class="pf-label">До:</span>
                     <input class="pf-input" type="number" inputmode="numeric" pattern="\\d*" aria-label="Цена до"
-                        min="0" step="1" id="max-price" />
+                        min="0" step="0.01" id="max-price" />
                 </label>
 
                 <!-- Кнопка применения фильтра -->
@@ -258,34 +272,17 @@
         <!-- Информация о фильтре -->
         <div class="filter-info">
             <span class="filter-text">Фильтр: </span>
-            <span class="filter-range">
-                от 0 до 10 000 ₽
+            <span class="filter-range" id="filterRangeText">
+                от 0 до ∞ ₽
             </span>
-            <span class="filter-count">
+            <span class="filter-count" id="filterCountText">
                 (найдено 0 товаров)
             </span>
         </div>
 
         <!-- Сетка товаров -->
         <div class="products-grid" id="products-grid">
-
             <!-- Карточки товаров будут добавляться через JavaScript -->
-
-            <!-- Карточка товара 1 -->
-            <div class="product-card" data-product-id="1" role="button" tabindex="0">
-                <div class="product-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60"
-                        alt="Cyberpunk 2077" class="product-image" loading="lazy">
-                </div>
-                <div class="product-card-content">
-                    <h3 class="product-title">Cyberpunk 2077</h3>
-                    <div class="product-price">2 499 ₽</div>
-                </div>
-                <button class="add-to-cart-btn" aria-label="Добавить в корзину" onclick="event.stopPropagation()">
-                    <span class="btn-text">В корзину</span>
-                    <span class="btn-icon">✓</span>
-                </button>
-            </div>
 
             <div class="no-results" id="no-results" style="display: none;">
                 Товары не найдены
@@ -298,43 +295,28 @@
         </div>
 
         <!-- Пагинация -->
-        <div class="pagination">
+        <div class="pagination" id="paginationContainer">
             <button class="page-btn prev-btn" id="prev-page" aria-label="Предыдущая страница" disabled>
                 ←
             </button>
 
             <div class="page-numbers" id="page-numbers">
-                <button class="page-number active" data-page="1" aria-label="Страница 1" aria-current="page">
-                    1
-                </button>
-                <button class="page-number" data-page="2" aria-label="Страница 2">
-                    2
-                </button>
-                <button class="page-number" data-page="3" aria-label="Страница 3">
-                    3
-                </button>
-                <button class="page-number" data-page="4" aria-label="Страница 4">
-                    4
-                </button>
-                <button class="page-number" data-page="5" aria-label="Страница 5">
-                    5
-                </button>
-
-                <span class="page-ellipsis">...</span>
+                <!-- Страницы будут генерироваться через JavaScript -->
             </div>
 
-            <button class="page-btn next-btn" id="next-page" aria-label="Следующая страница">
+            <button class="page-btn next-btn" id="next-page" aria-label="Следующая страница" disabled>
                 →
             </button>
 
             <div class="page-info">
-                Страница <span id="current-page">1</span> из <span id="total-pages">5</span>
+                Страница <span id="current-page">1</span> из <span id="total-pages">1</span>
             </div>
         </div>
 
         <!-- Модальное окно просмотра товара -->
-        <div class="modal-overlay view" id="productViewOverlay">
+        <div class="modal-overlay view" id="productViewOverlay" style="display: none;">
             <div class="product-view-modal">
+                <button class="close-view-btn" id="closeProductViewBtn" aria-label="Закрыть просмотр">×</button>
 
                 <div class="product-view-details">
                     <div class="view-left-section">
@@ -342,7 +324,8 @@
                             <div class="photo-placeholder large">
                                 <div class="no-image-text">Нет изображения</div>
                             </div>
-                            <img class="view-main-image" id="viewMainImage" style="display: none;">
+                            <img class="view-main-image" id="viewMainImage" style="display: none;"
+                                alt="Изображение игры">
                         </div>
 
                         <div class="view-description-box">
@@ -354,7 +337,7 @@
 
                         <div class="view-price-section">
                             <label class="field-label">Цена (₽):</label>
-                            <div class="view-price-value" id="viewPrice">price</div>
+                            <div class="view-price-value" id="viewPrice">0</div>
                         </div>
                     </div>
 
@@ -386,8 +369,8 @@
                             </div>
 
                             <div class="spec-row">
-                                <div class="spec-label">Платформа:</div>
-                                <div class="spec-value" id="viewPlatform">PC</div>
+                                <div class="spec-label">Доступно ключей:</div>
+                                <div class="spec-value" id="viewCount">0</div>
                             </div>
 
                         </div>
@@ -448,7 +431,8 @@
     <script src="js/index.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/genres.js"></script>
-    <script src="js/product_views.js"></script>
-    
+    <script src="js/product_view.js"></script>
+
 </body>
+
 </html>

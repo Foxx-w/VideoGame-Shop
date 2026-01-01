@@ -123,6 +123,27 @@ body {
     color: #333;
 }
 
+.search-clear-btn {
+    position: absolute;
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.search-clear-btn:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
 .search-input::placeholder {
     color: #999;
 }

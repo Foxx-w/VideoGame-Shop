@@ -18,10 +18,21 @@ document.addEventListener('DOMContentLoaded', function() {
 // Проверка статуса авторизации
 async function checkAuthStatus() {
     try {
-        const userData = await window.api.auth.check();
-        currentUser = userData;
-        userRole = userData.role || userData.userRole;
-        updateUIForLoggedInUser();
+        // Согласно документации, нет endpoint для проверки авторизации
+        // Вместо этого проверим наличие куки и отобразим соответствующее меню
+        // На практике сервер будет возвращать 401/403 при неавторизованных запросах
+        updateUIForGuest();
+        
+        // Попробуем получить корзину - если получится, значит пользователь авторизован
+        try {
+            const cartData = await window.api.cart.get();
+            // Если запрос успешен, но пользователь не определен - покажем меню гостя
+            // На практике сервер должен возвращать данные пользователя при успешной авторизации
+            updateUIForGuest();
+        } catch (error) {
+            // Ошибка означает, что пользователь не авторизован
+            updateUIForGuest();
+        }
     } catch (error) {
         updateUIForGuest();
     }
@@ -53,13 +64,6 @@ function setupEventListeners() {
             closeAllMenus();
         }
     });
-    
-    // Закрытие меню при скролле на мобильных устройствах
-    window.addEventListener('scroll', function() {
-        if (window.innerWidth <= 1024 && currentMenu) {
-            closeAllMenus();
-        }
-    });
 }
 
 // Показ/скрытие меню пользователя
@@ -69,8 +73,11 @@ function toggleUserMenu(event) {
     event.stopPropagation();
     event.preventDefault();
     
+    // Согласно документации, роли: CUSTOMER или SELLER
+    // Если нет текущего пользователя - показываем меню гостя
     let menuToShow;
-    if (currentUser && userRole) {
+    
+    if (currentUser) {
         if (userRole === 'SELLER') {
             menuToShow = 'sellerMenu';
         } else if (userRole === 'CUSTOMER') {
@@ -101,33 +108,12 @@ function showMenu(menuId) {
     // Показываем нужное меню
     const menu = document.getElementById(menuId);
     if (menu) {
-        // Для мобильных устройств добавляем оверлей фона
-        if (window.innerWidth <= 1024) {
-            menu.style.display = 'block';
-            // Небольшая задержка для отображения блока перед анимацией
-            setTimeout(() => {
-                menu.classList.add('show');
-            }, 10);
-        } else {
-            // Для десктопа сразу показываем
-            menu.style.display = 'block';
-        }
+        menu.style.display = 'block';
+        setTimeout(() => {
+            menu.classList.add('show');
+        }, 10);
         
         currentMenu = menuId;
-        
-        // Убираем все инлайн стили, которые могут мешать
-        const menuContainer = menu.querySelector('.menu-container');
-        if (menuContainer) {
-            // Удаляем все инлайн стили позиционирования
-            menuContainer.style.position = '';
-            menuContainer.style.top = '';
-            menuContainer.style.right = '';
-            menuContainer.style.left = '';
-            menuContainer.style.transform = '';
-            menuContainer.style.transition = '';
-            menuContainer.style.width = '';
-            menuContainer.style.height = '';
-        }
         
         // Загружаем данные для авторизованного пользователя
         if (menuId !== 'guestMenu') {
@@ -146,39 +132,16 @@ function closeAllMenus() {
     if (isAnimating) return;
     isAnimating = true;
     
-    // Просто скрываем меню, не трогая стили
     const menus = ['guestMenu', 'userMenu', 'sellerMenu'];
     menus.forEach(id => {
         const menu = document.getElementById(id);
         if (menu) {
-            // Убираем класс show для анимации закрытия
             menu.classList.remove('show');
-            
-            // Для мобильных устройств - плавное скрытие
-            if (window.innerWidth <= 1024) {
-                setTimeout(() => {
-                    if (!menu.classList.contains('show')) {
-                        menu.style.display = 'none';
-                    }
-                }, 300);
-            } else {
-                // Для десктопа сразу скрываем
-                menu.style.display = 'none';
-            }
-            
-            // Восстанавливаем инлайн стили к дефолтным значениям CSS
-            const menuContainer = menu.querySelector('.menu-container');
-            if (menuContainer) {
-                // Удаляем все инлайн стили, которые могли добавиться
-                menuContainer.style.position = '';
-                menuContainer.style.top = '';
-                menuContainer.style.right = '';
-                menuContainer.style.left = '';
-                menuContainer.style.transform = '';
-                menuContainer.style.transition = '';
-                menuContainer.style.width = '';
-                menuContainer.style.height = '';
-            }
+            setTimeout(() => {
+                if (!menu.classList.contains('show')) {
+                    menu.style.display = 'none';
+                }
+            }, 300);
         }
     });
     
@@ -197,19 +160,6 @@ function closeAllMenusWithoutAnimation() {
         if (menu) {
             menu.classList.remove('show');
             menu.style.display = 'none';
-            
-            // Восстанавливаем инлайн стили
-            const menuContainer = menu.querySelector('.menu-container');
-            if (menuContainer) {
-                menuContainer.style.position = '';
-                menuContainer.style.top = '';
-                menuContainer.style.right = '';
-                menuContainer.style.left = '';
-                menuContainer.style.transform = '';
-                menuContainer.style.transition = '';
-                menuContainer.style.width = '';
-                menuContainer.style.height = '';
-            }
         }
     });
 }
@@ -220,14 +170,14 @@ function updateUIForLoggedInUser() {
     const actionLabel = document.querySelector('.user-btn .action-label');
     
     if (userBtn && actionLabel) {
-        const userName = currentUser.username || currentUser.Username || 'Профиль';
+        const userName = currentUser.Username || 'Профиль';
         actionLabel.textContent = userName.length > 10 ? 
             userName.substring(0, 10) + '...' : userName;
         
         userBtn.classList.add('user-has-items');
         
-        // Обновляем аватар в меню
-        updateAvatar();
+        // Обновляем данные пользователя
+        updateUserInfo(currentUser, userRole);
         
         // Загружаем данные корзины для покупателя
         if (userRole === 'CUSTOMER') {
@@ -254,51 +204,45 @@ function updateUIForGuest() {
     }
 }
 
-// Обновление аватара
-function updateAvatar() {
-    const userName = currentUser.username || currentUser.Username || '';
-    let initials = 'П';
-    
-    if (userName) {
-        const parts = userName.split(' ');
-        if (parts.length >= 2) {
-            initials = (parts[0][0] + parts[1][0]).toUpperCase();
-        } else {
-            initials = userName[0].toUpperCase();
+// Обновление информации о пользователе
+function updateUserInfo(user, role) {
+    try {
+        const userName = user.Username || '';
+        const userEmail = user.Email || '';
+        
+        // Обновляем аватар и имя
+        const initials = getInitials(userName);
+        
+        // Обновляем для меню покупателя
+        const userAvatar = document.getElementById('userAvatar');
+        const userNameEl = document.getElementById('userName');
+        const userEmailEl = document.getElementById('userEmail');
+        const userRoleEl = document.getElementById('userRole');
+        
+        if (userAvatar) userAvatar.textContent = initials;
+        if (userNameEl) userNameEl.textContent = userName;
+        if (userEmailEl) userEmailEl.textContent = userEmail;
+        if (userRoleEl) userRoleEl.textContent = role === 'CUSTOMER' ? 'Покупатель' : 'Продавец';
+        
+        // Обновляем для меню продавца
+        const sellerAvatar = document.getElementById('sellerAvatar');
+        const sellerNameEl = document.getElementById('sellerName');
+        const sellerEmailEl = document.getElementById('sellerEmail');
+        const sellerRoleEl = document.getElementById('sellerRole');
+        
+        if (sellerAvatar) sellerAvatar.textContent = initials;
+        if (sellerNameEl) sellerNameEl.textContent = userName;
+        if (sellerEmailEl) sellerEmailEl.textContent = userEmail;
+        if (sellerRoleEl) sellerRoleEl.textContent = 'Продавец';
+        
+        // Обновляем текст на кнопке
+        const userMenuLabel = document.getElementById('userMenuLabel');
+        if (userMenuLabel) {
+            userMenuLabel.textContent = userName.length > 10 ? 
+                userName.substring(0, 10) + '...' : userName || 'Профиль';
         }
-    }
-    
-    // Обновляем аватар для пользователя
-    const userAvatar = document.getElementById('userAvatar');
-    if (userAvatar) userAvatar.textContent = initials;
-    
-    // Обновляем аватар для продавца
-    const sellerAvatar = document.getElementById('sellerAvatar');
-    if (sellerAvatar) sellerAvatar.textContent = initials;
-    
-    // Обновляем имя
-    const userNameElement = document.getElementById('userName');
-    if (userNameElement) userNameElement.textContent = userName;
-    
-    const sellerNameElement = document.getElementById('sellerName');
-    if (sellerNameElement) sellerNameElement.textContent = userName;
-    
-    // Обновляем email
-    const userEmailElement = document.getElementById('userEmail');
-    const sellerEmailElement = document.getElementById('sellerEmail');
-    const userEmail = currentUser.email || currentUser.Email || '';
-    if (userEmailElement) userEmailElement.textContent = userEmail;
-    if (sellerEmailElement) sellerEmailElement.textContent = userEmail;
-    
-    // Обновляем роль
-    const userRoleElement = document.getElementById('userRole');
-    if (userRoleElement) {
-        userRoleElement.textContent = userRole === 'CUSTOMER' ? 'Покупатель' : 'Продавец';
-    }
-    
-    const sellerRoleElement = document.getElementById('sellerRole');
-    if (sellerRoleElement) {
-        sellerRoleElement.textContent = userRole === 'CUSTOMER' ? 'Покупатель' : 'Продавец';
+    } catch (error) {
+        console.error('Ошибка обновления информации пользователя:', error);
     }
 }
 
@@ -315,8 +259,9 @@ async function updateUserMenuData() {
 async function loadCartData() {
     try {
         const cartData = await window.api.cart.get();
-        const totalItems = cartData.cartItems?.reduce((sum, item) => sum + item.quantity, 0) || 0;
+        const totalItems = cartData.CartItems?.reduce((sum, item) => sum + item.Quantity, 0) || 0;
         
+        // Обновляем бейдж в хедере
         const cartBadge = document.getElementById('cartItemCount');
         if (cartBadge) {
             if (totalItems > 0) {
@@ -324,6 +269,17 @@ async function loadCartData() {
                 cartBadge.style.display = 'inline-block';
             } else {
                 cartBadge.style.display = 'none';
+            }
+        }
+        
+        // Обновляем бейдж в меню
+        const cartMenuBadge = document.getElementById('cartItemCountMenu');
+        if (cartMenuBadge) {
+            if (totalItems > 0) {
+                cartMenuBadge.textContent = totalItems > 99 ? '99+' : totalItems;
+                cartMenuBadge.style.display = 'inline-block';
+            } else {
+                cartMenuBadge.style.display = 'none';
             }
         }
     } catch (error) {
@@ -336,29 +292,27 @@ async function loadSellerData() {
     try {
         // Загрузка списка игр продавца
         const gamesData = await window.api.games.getMyGames(1, 100);
-        const totalGames = gamesData.totalElements || 0;
+        const totalGames = gamesData.TotalElements || 0;
         
-        const gamesCountEl = document.getElementById('gamesCount');
         const sellerGamesCountEl = document.getElementById('sellerGamesCount');
-        
-        if (gamesCountEl) gamesCountEl.textContent = totalGames;
         if (sellerGamesCountEl) {
             sellerGamesCountEl.textContent = totalGames;
-            sellerGamesCountEl.style.display = totalGames > 0 ? 'inline-block' : 'none';
         }
-        
-        // Подсчет общего количества ключей
-        let totalKeys = 0;
-        if (gamesData.content) {
-            gamesData.content.forEach(game => {
-                totalKeys += game.count || 0;
-            });
-        }
-        
-        const keysCountEl = document.getElementById('keysCount');
-        if (keysCountEl) keysCountEl.textContent = totalKeys;
     } catch (error) {
         console.error('Ошибка загрузки данных продавца:', error);
+    }
+}
+
+// Установка пользователя после успешной авторизации
+function setUser(userData, role) {
+    currentUser = userData;
+    userRole = role;
+    updateUIForLoggedInUser();
+    
+    // Сохраняем в localStorage для сохранения состояния между страницами
+    if (userData) {
+        localStorage.setItem('currentUser', JSON.stringify(userData));
+        localStorage.setItem('userRole', role);
     }
 }
 
@@ -369,6 +323,10 @@ async function logout() {
         // Сброс состояния
         currentUser = null;
         userRole = null;
+        
+        // Удаляем из localStorage
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('userRole');
         
         // Обновление UI
         updateUIForGuest();
@@ -381,10 +339,29 @@ async function logout() {
         // Даже при ошибке сбрасываем состояние клиента
         currentUser = null;
         userRole = null;
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('userRole');
         updateUIForGuest();
         closeAllMenus();
         window.location.reload();
     }
+}
+
+// Восстановление пользователя из localStorage
+function restoreUserFromStorage() {
+    try {
+        const savedUser = localStorage.getItem('currentUser');
+        const savedRole = localStorage.getItem('userRole');
+        
+        if (savedUser && savedRole) {
+            const userData = JSON.parse(savedUser);
+            setUser(userData, savedRole);
+            return true;
+        }
+    } catch (error) {
+        console.error('Ошибка восстановления пользователя:', error);
+    }
+    return false;
 }
 
 // Вспомогательные функции для работы с инициалами
@@ -397,42 +374,19 @@ function getInitials(name) {
     return name[0].toUpperCase();
 }
 
-// Обновление информации о пользователе
-function updateUserInfo(user, role) {
-    try {
-        const userName = user.username || user.Username || '';
-        const userEmail = user.email || user.Email || '';
-        
-        // Обновляем аватар и имя
-        const initials = getInitials(userName);
-        document.getElementById('userAvatar').textContent = initials;
-        document.getElementById('sellerAvatar').textContent = initials;
-        document.getElementById('userName').textContent = userName;
-        document.getElementById('sellerName').textContent = userName;
-        document.getElementById('userEmail').textContent = userEmail;
-        document.getElementById('sellerEmail').textContent = userEmail;
-        document.getElementById('userRole').textContent = role === 'CUSTOMER' ? 'Покупатель' : 'Продавец';
-        
-        // Обновляем текст на кнопке
-        const userMenuLabel = document.getElementById('userMenuLabel');
-        if (userMenuLabel) {
-            userMenuLabel.textContent = userName.length > 10 ? 
-                userName.substring(0, 10) + '...' : userName || 'Профиль';
-        }
-    } catch (error) {
-        console.error('Ошибка обновления информации пользователя:', error);
-    }
-}
-
 // Глобальные функции для вызова из HTML
 window.closeAllMenus = closeAllMenus;
 window.toggleUserMenu = toggleUserMenu;
 window.logout = logout;
+window.setUser = setUser;
+window.restoreUserFromStorage = restoreUserFromStorage;
 
 // Экспортируем функции для использования в других файлах
 window.authManager = {
     checkAuthStatus,
     logout,
+    setUser,
+    restoreUserFromStorage,
     getCurrentUser: () => currentUser,
     getUserRole: () => userRole,
     toggleUserMenu,
@@ -440,6 +394,5 @@ window.authManager = {
     closeAllMenus,
     updateUserInfo,
     loadCartData,
-    loadSellerData,
-    updateAvatar
+    loadSellerData
 };

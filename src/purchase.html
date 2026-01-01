@@ -18,185 +18,91 @@
     <div class="history-root">
         <!-- Заголовок сайта -->
         <header class="site-header" role="banner" aria-label="Главная шапка">
-        <div class="header-inner">
-            <div class="header-left">
-                <a href="index.html" class="logo-wrap">
-                    <div class="logo-text">Flex-Shop</div>
-                </a>
-            </div>
+            <div class="header-inner">
+                <div class="header-left">
+                    <a href="index.html" class="logo-wrap">
+                        <div class="logo-text">Flex-Shop</div>
+                    </a>
+                </div>
 
-            <div class="header-right">
-                <a href="" class="action-btn cart-btn">
-                    <!-- SVG иконка корзины -->
-                    <svg class="icon cart-icon" viewBox="59 55 28 29" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M87 67.5001V68.5001C87 69.3285 86.4777 70.0001 85.8333 70.0001H85.4444L84.1751 81.4243C84.0109 82.9022 83.0264 84 81.8652 84H64.1348C62.9736 84 61.9891 82.9022 61.8249 81.4243L60.5556 70.0001H60.1667C59.5223 70.0001 59 69.3285 59 68.5001V67.5001C59 66.6717 59.5223 66.0001 60.1667 66.0001H63.4402L68.6309 56.8239C69.1362 55.9306 70.109 55.7331 70.8038 56.3827C71.4986 57.0324 71.6523 58.2832 71.1469 59.1765L67.2871 66.0001H78.7129L74.8531 59.1765C74.3477 58.2832 74.5014 57.0324 75.1962 56.3827C75.8909 55.733 76.8639 55.9305 77.3692 56.8238L82.5598 66.0001H85.8333C86.4777 66.0001 87 66.6717 87 67.5001ZM74.1667 78.5V71.5001C74.1667 70.6716 73.6443 70.0001 73 70.0001C72.3557 70.0001 71.8333 70.6716 71.8333 71.5001V78.5C71.8333 79.3285 72.3557 80 73 80C73.6443 80 74.1667 79.3285 74.1667 78.5ZM79.6111 78.5V71.5001C79.6111 70.6716 79.0888 70.0001 78.4444 70.0001C77.8001 70.0001 77.2778 70.6716 77.2778 71.5001V78.5C77.2778 79.3285 77.8001 80 78.4444 80C79.0888 80 79.6111 79.3285 79.6111 78.5ZM68.7222 78.5V71.5001C68.7222 70.6716 68.1999 70.0001 67.5556 70.0001C66.9112 70.0001 66.3889 70.6716 66.3889 71.5001V78.5C66.3889 79.3285 66.9112 80 67.5556 80C68.1999 80 68.7222 79.3285 68.7222 78.5Z" fill="currentColor"/>
-                    </svg>
-                    <span class="action-label">Корзина</span>
-                </a>
+                <div class="header-right">
+                    <a href="" class="action-btn cart-btn">
+                        <svg class="icon cart-icon" viewBox="59 55 28 29" xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true">
+                            <path
+                                d="M87 67.5001V68.5001C87 69.3285 86.4777 70.0001 85.8333 70.0001H85.4444L84.1751 81.4243C84.0109 82.9022 83.0264 84 81.8652 84H64.1348C62.9736 84 61.9891 82.9022 61.8249 81.4243L60.5556 70.0001H60.1667C59.5223 70.0001 59 69.3285 59 68.5001V67.5001C59 66.6717 59.5223 66.0001 60.1667 66.0001H63.4402L68.6309 56.8239C69.1362 55.9306 70.109 55.7331 70.8038 56.3827C71.4986 57.0324 71.6523 58.2832 71.1469 59.1765L67.2871 66.0001H78.7129L74.8531 59.1765C74.3477 58.2832 74.5014 57.0324 75.1962 56.3827C75.8909 55.733 76.8639 55.9305 77.3692 56.8238L82.5598 66.0001H85.8333C86.4777 66.0001 87 66.6717 87 67.5001ZM74.1667 78.5V71.5001C74.1667 70.6716 73.6443 70.0001 73 70.0001C72.3557 70.0001 71.8333 70.6716 71.8333 71.5001V78.5C71.8333 79.3285 72.3557 80 73 80C73.6443 80 74.1667 79.3285 74.1667 78.5ZM79.6111 78.5V71.5001C79.6111 70.6716 79.0888 70.0001 78.4444 70.0001C77.8001 70.0001 77.2778 70.6716 77.2778 71.5001V78.5C77.2778 79.3285 77.8001 80 78.4444 80C79.0888 80 79.6111 79.3285 79.6111 78.5ZM68.7222 78.5V71.5001C68.7222 70.6716 68.1999 70.0001 67.5556 70.0001C66.9112 70.0001 66.3889 70.6716 66.3889 71.5001V78.5C66.3889 79.3285 66.9112 80 67.5556 80C68.1999 80 68.7222 79.3285 68.7222 78.5Z"
+                                fill="currentColor" />
+                        </svg>
+                        <span class="action-label">Корзина</span>
+                    </a>
 
-                <button type="button" class="action-btn user-btn">
-                    <!-- SVG иконка пользователя -->
-                    <svg class="icon user-icon" viewBox="107 56 26 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M120 70C121.97 70 123.86 69.2625 125.253 67.9497C126.646 66.637 127.429 64.8565 127.429 63C127.429 61.1435 126.646 59.363 125.253 58.0503C123.86 56.7375 121.97 56 120 56C118.03 56 116.14 56.7375 114.747 58.0503C113.354 59.363 112.571 61.1435 112.571 63C112.571 64.8565 113.354 66.637 114.747 67.9497C116.14 69.2625 118.03 70 120 70ZM117.348 72.625C111.631 72.625 107 76.9891 107 82.3758C107 83.2727 107.772 84 108.724 84H131.276C132.228 84 133 83.2727 133 82.3758C133 76.9891 128.369 72.625 122.652 72.625H117.348Z" fill="currentColor"/>
-                    </svg>
-                    <span class="action-label">Войти</span>
-                </button>
+                    <button type="button" class="action-btn user-btn">
+                        <svg class="icon user-icon" viewBox="107 56 26 28" xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true">
+                            <path
+                                d="M120 70C121.97 70 123.86 69.2625 125.253 67.9497C126.646 66.637 127.429 64.8565 127.429 63C127.429 61.1435 126.646 59.363 125.253 58.0503C123.86 56.7375 121.97 56 120 56C118.03 56 116.14 56.7375 114.747 58.0503C113.354 59.363 112.571 61.1435 112.571 63C112.571 64.8565 113.354 66.637 114.747 67.9497C116.14 69.2625 118.03 70 120 70ZM117.348 72.625C111.631 72.625 107 76.9891 107 82.3758C107 83.2727 107.772 84 108.724 84H131.276C132.228 84 133 83.2727 133 82.3758C133 76.9891 128.369 72.625 122.652 72.625H117.348Z"
+                                fill="currentColor" />
+                        </svg>
+                        <span class="action-label">Войти</span>
+                    </button>
+                </div>
             </div>
-        </div>
         </header>
 
-        <main class="history-canvas">
-            <div class="history-inner">
-                <section class="history-container">
-                    <div class="history-header">
-                        <h1 class="history-title">История покупок</h1>
-                        <div class="history-count">
-                            <span class="history-items-label">товаров</span>
-                            <span class="history-items-number" id="totalItems">5</span>
-                        </div>
-                    </div>
+        <main class="purchase-history-canvas" role="main" aria-label="История покупок">
+            <div class="purchase-history-section">
+                <div class="purchase-history-header">
+                    <h2 class="purchase-history-title">История покупок</h2>
+                    <span class="purchase-history-count" id="totalItems">0 шт.</span>
+                </div>
 
-                    <div class="history-body">
-                        <!-- Список заказов -->
-                        <div id="ordersList" class="orders-list">
-                            <!-- Пример заказа 1 -->
-                            <div class="order-card">
-                                <div class="order-header">
-                                    <span class="order-id">Заказ #125</span>
-                                    <span class="order-date">15 декабря 2024, 14:30</span>
-                                    <span class="order-status status-completed">
-                                        Завершён
-                                    </span>
-                                    <span class="order-total">2 999 ₽</span>
-                                </div>
-
-                                <div class="order-items">
-                                    <div class="order-item">
-                                        <img src="https://via.placeholder.com/60x60/667eea/ffffff?text=CP2077"
-                                            alt="Cyberpunk 2077" class="item-image" />
-                                        <div class="item-info">
-                                            <h4 class="item-title">Cyberpunk 2077</h4>
-                                            <p class="item-price">1 999 ₽</p>
-                                        </div>
-                                        <span class="item-quantity">×1</span>
-                                    </div>
-                                    <div class="order-item">
-                                        <img src="https://via.placeholder.com/60x60/764ba2/ffffff?text=W3"
-                                            alt="The Witcher 3" class="item-image" />
-                                        <div class="item-info">
-                                            <h4 class="item-title">The Witcher 3: Wild Hunt</h4>
-                                            <p class="item-price">999 ₽</p>
-                                        </div>
-                                        <span class="item-quantity">×1</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Пример заказа 2 -->
-                            <div class="order-card">
-                                <div class="order-header">
-                                    <span class="order-id">Заказ #124</span>
-                                    <span class="order-date">10 декабря 2024, 09:15</span>
-                                    <span class="order-status status-delivered">
-                                        Доставлен
-                                    </span>
-                                    <span class="order-total">4 499 ₽</span>
-                                </div>
-
-                                <div class="order-items">
-                                    <div class="order-item">
-                                        <img src="https://via.placeholder.com/60x60/f5576c/ffffff?text=BG3"
-                                            alt="Baldur's Gate 3" class="item-image" />
-                                        <div class="item-info">
-                                            <h4 class="item-title">Baldur's Gate 3</h4>
-                                            <p class="item-price">2 999 ₽</p>
-                                        </div>
-                                        <span class="item-quantity">×1</span>
-                                    </div>
-                                    <div class="order-item">
-                                        <img src="https://via.placeholder.com/60x60/f093fb/ffffff?text=EAFC2"
-                                            alt="EA FC 24" class="item-image" />
-                                        <div class="item-info">
-                                            <h4 class="item-title">EA SPORTS FC 24</h4>
-                                            <p class="item-price">1 499 ₽</p>
-                                        </div>
-                                        <span class="item-quantity">×1</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Пример заказа 3 -->
-                            <div class="order-card">
-                                <div class="order-header">
-                                    <span class="order-id">Заказ #123</span>
-                                    <span class="order-date">5 декабря 2024, 18:45</span>
-                                    <span class="order-status status-cancelled">
-                                        Отменён
-                                    </span>
-                                    <span class="order-total">599 ₽</span>
-                                </div>
-
-                                <div class="order-items">
-                                    <div class="order-item">
-                                        <img src="https://via.placeholder.com/60x60/4CAF50/ffffff?text=Stardew"
-                                            alt="Stardew Valley" class="item-image" />
-                                        <div class="item-info">
-                                            <h4 class="item-title">Stardew Valley</h4>
-                                            <p class="item-price">599 ₽</p>
-                                        </div>
-                                        <span class="item-quantity">×1</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <aside class="history-sidebar">
-                    <img src="/src/assets/images/history.png" alt="История покупок" class="history-image" />
-                </aside>
+                <div class="purchase-history-container" id="purchasesList">
+                    <!-- Заказы будут загружаться через JavaScript -->
+                </div>
             </div>
         </main>
 
         <!-- Футер -->
         <footer class="site-footer" role="contentinfo" aria-label="Футер">
-        <div class="footer-inner">
-            <div class="footer-left">
-                <a href="" class="footer-logo-link">
-                    <div class="footer-logo-wrap">
-                        <div class="footer-logo-text">Flex-Shop</div>
+            <div class="footer-inner">
+                <div class="footer-left">
+                    <a href="" class="footer-logo-link">
+                        <div class="footer-logo-wrap">
+                            <div class="footer-logo-text">Flex-Shop</div>
+                        </div>
+                    </a>
+                    <div class="footer-sub">© Flex-Shop 2025. Все права защищены.</div>
+                </div>
+
+                <div class="footer-right">
+                    <div class="footer-title">Мы в соцсетях</div>
+                    <div class="footer-icons">
+                        <a class="social-link" href="#" aria-label="Telegram">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="58 112 29 26" class="social-svg"
+                                fill="currentColor">
+                                <path
+                                    d="M86.9202 115.276L82.6948 136.491C82.3761 137.988 81.5447 138.361 80.3634 137.655L73.9253 132.605L70.8188 135.785C70.475 136.152 70.1875 136.458 69.5249 136.458L69.9875 129.477L81.9198 117.998C82.4386 117.505 81.8073 117.232 81.1134 117.725L66.3621 127.614L60.0116 125.497C58.6302 125.038 58.6052 124.027 60.2991 123.321L85.1388 113.133C86.2889 112.674 87.2952 113.406 86.9202 115.276Z" />
+                            </svg>
+                            <span class="social-label">Telegram</span>
+                        </a>
+
+                        <a class="social-link" href="#" aria-label="Вконтакте">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="107 116 28 18" class="social-svg"
+                                fill="currentColor">
+                                <path
+                                    d="M134.362 117.221C134.554 116.517 134.362 116 133.437 116H130.375C129.595 116 129.237 116.444 129.044 116.939C129.044 116.939 127.485 121.051 125.281 123.717C124.569 124.488 124.242 124.736 123.852 124.736C123.659 124.736 123.363 124.488 123.363 123.785V117.221C123.363 116.377 123.145 116 122.5 116H117.687C117.198 116 116.907 116.394 116.907 116.759C116.907 117.558 118.009 117.744 118.124 119.994V124.876C118.124 125.945 117.947 126.142 117.557 126.142C116.517 126.142 113.991 122.013 112.494 117.288C112.193 116.371 111.896 116 111.112 116H108.05C107.177 116 107 116.444 107 116.939C107 117.817 108.04 122.176 111.839 127.936C114.371 131.868 117.936 134 121.18 134C123.129 134 123.368 133.527 123.368 132.712C123.368 128.954 123.192 128.6 124.169 128.6C124.621 128.6 125.401 128.848 127.22 130.743C129.299 132.993 129.642 134 130.806 134H133.868C134.741 134 135.183 133.528 134.928 132.594C134.346 130.631 130.411 126.592 130.235 126.322C129.782 125.692 129.912 125.411 130.235 124.848C130.24 124.843 133.977 119.15 134.362 117.221Z" />
+                            </svg>
+                            <span class="social-label">ВКонтакте</span>
+                        </a>
                     </div>
-                </a>
-                <div class="footer-sub">© Flex-Shop 2025. Все права защищены.</div>
-            </div>
-
-            <div class="footer-right">
-                <div class="footer-title">Мы в соцсетях</div>
-                <div class="footer-icons">
-                    <a class="social-link" href="#" aria-label="Telegram">
-                        <!-- SVG иконка Telegram -->
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="58 112 29 26" class="social-svg" fill="currentColor">
-                            <path d="M86.9202 115.276L82.6948 136.491C82.3761 137.988 81.5447 138.361 80.3634 137.655L73.9253 132.605L70.8188 135.785C70.475 136.152 70.1875 136.458 69.5249 136.458L69.9875 129.477L81.9198 117.998C82.4386 117.505 81.8073 117.232 81.1134 117.725L66.3621 127.614L60.0116 125.497C58.6302 125.038 58.6052 124.027 60.2991 123.321L85.1388 113.133C86.2889 112.674 87.2952 113.406 86.9202 115.276Z"/>
-                        </svg>
-                        <span class="social-label">Telegram</span>
-                    </a>
-
-                    <a class="social-link" href="#" aria-label="Вконтакте">
-                        <!-- SVG иконка ВКонтакте -->
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="107 116 28 18" class="social-svg" fill="currentColor">
-                            <path d="M134.362 117.221C134.554 116.517 134.362 116 133.437 116H130.375C129.595 116 129.237 116.444 129.044 116.939C129.044 116.939 127.485 121.051 125.281 123.717C124.569 124.488 124.242 124.736 123.852 124.736C123.659 124.736 123.363 124.488 123.363 123.785V117.221C123.363 116.377 123.145 116 122.5 116H117.687C117.198 116 116.907 116.394 116.907 116.759C116.907 117.558 118.009 117.744 118.124 119.994V124.876C118.124 125.945 117.947 126.142 117.557 126.142C116.517 126.142 113.991 122.013 112.494 117.288C112.193 116.371 111.896 116 111.112 116H108.05C107.177 116 107 116.444 107 116.939C107 117.817 108.04 122.176 111.839 127.936C114.371 131.868 117.936 134 121.18 134C123.129 134 123.368 133.527 123.368 132.712C123.368 128.954 123.192 128.6 124.169 128.6C124.621 128.6 125.401 128.848 127.22 130.743C129.299 132.993 129.642 134 130.806 134H133.868C134.741 134 135.183 133.528 134.928 132.594C134.346 130.631 130.411 126.592 130.235 126.322C129.782 125.692 129.912 125.411 130.235 124.848C130.24 124.843 133.977 119.15 134.362 117.221Z"/>
-                        </svg>
-                        <span class="social-label">ВКонтакте</span>
-                    </a>
                 </div>
             </div>
-        </div>
         </footer>
-
     </div>
 
     <script src="js/auth.js"></script>
     <script src="js/menu.js"></script>
+    <script src="js/purchase.js"></script>
 </body>
 
 </html>
