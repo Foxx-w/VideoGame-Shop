@@ -21,6 +21,34 @@ class GameStore {
         await this.loadGames();
     }
 
+    // Настройка слушателей событий для поиска и очистки
+
+    setupEventListeners() {
+        const searchInput = document.getElementById('searchInput');
+        const clearBtn = document.getElementById('clearSearchBtn');
+
+        if (searchInput) {
+            let debounce;
+            searchInput.addEventListener('input', (e) => {
+                clearTimeout(debounce);
+                debounce = setTimeout(async () => {
+                    this.filters.gameTitle = e.target.value.trim();
+                    this.currentPage = 1;
+                    await this.loadGames();
+                }, 350);
+            });
+        }
+
+        if (clearBtn) {
+            clearBtn.addEventListener('click', async () => {
+                if (searchInput) searchInput.value = '';
+                this.filters.gameTitle = '';
+                this.currentPage = 1;
+                await this.loadGames();
+            });
+        }
+    }
+
     async loadGenres() {
         try {
             const genres = await api.getGenres();
