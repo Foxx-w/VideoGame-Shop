@@ -7,7 +7,7 @@ class OrdersPage {
     }
 
     async init() {
-        await auth.checkAuth();
+        await auth.init();
         if (auth.currentUser?.role !== 'CUSTOMER') {
             window.location.href = 'index.html';
             return;

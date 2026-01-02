@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/components_css/header.css">
     <link rel="stylesheet" href="css/components_css/footer.css">
+    <link rel="stylesheet" href="css/components_css/menu.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;600&display=swap"
         rel="stylesheet">
 </head>
@@ -72,6 +73,99 @@
             </div>
         </div>
     </header>
+
+    <div class="menu-fixed-container" id="menuContainer">
+        <!-- Меню гостя -->
+        <div id="guestMenu" class="menu-overlay guest-menu">
+            <div class="menu-container" role="dialog" aria-label="Меню неавторизованного пользователя">
+                <button class="menu-button" id="mainMenuBtn">
+                    <img src="assets/icons/buy.svg" alt="" class="menu-icon" />
+                    <span>Главная</span>
+                </button>
+
+                <button class="menu-button" id="loginMenuBtn">
+                    <img src="assets/icons/user.svg" alt="" class="menu-icon" />
+                    <span>Вход в аккаунт</span>
+                </button>
+
+                <button class="menu-button" id="registerMenuBtn">
+                    <img src="assets/icons/registration.svg" alt="" class="menu-icon" />
+                    <span>Регистрация</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Меню покупателя -->
+        <div id="userMenu" class="menu-overlay user-menu">
+            <div class="menu-container" role="dialog" aria-label="Меню покупателя">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">П</div>
+                    <div class="user-details">
+                        <div class="user-name" id="userName">Пользователь</div>
+                        <div class="user-email" id="userEmail"></div>
+                        <div class="user-role">Покупатель</div>
+                    </div>
+                </div>
+
+                <nav class="user-nav">
+                    <button class="menu-button" id="mainUserMenuBtn">
+                        <img src="assets/icons/buy.svg" alt="" class="menu-icon" />
+                        <span>Главная</span>
+                    </button>
+
+                    <button class="menu-button" id="ordersMenuBtn">
+                        <img src="assets/icons/history.svg" alt="" class="menu-icon" />
+                        <span>История заказов</span>
+                    </button>
+
+                    <button class="menu-button" id="cartMenuBtn">
+                        <img src="assets/icons/shopping-cart.svg" alt="" class="menu-icon" />
+                        <span>Корзина</span>
+                        <span id="cartItemCountMenu" class="menu-badge" style="display: none;">0</span>
+                    </button>
+
+                    <button class="menu-button" id="userLogoutBtn">
+                        <img src="assets/icons/logout.svg" alt="" class="menu-icon" />
+                        <span>Выйти</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Меню продавца -->
+        <div id="sellerMenu" class="menu-overlay seller-menu">
+            <div class="menu-container" role="dialog" aria-label="Меню продавца">
+                <div class="user-info">
+                    <div class="user-avatar" id="sellerAvatar">П</div>
+                    <div class="user-details">
+                        <div class="user-name" id="sellerName">Продавец</div>
+                        <div class="user-email" id="sellerEmail"></div>
+                        <div class="user-role">Продавец</div>
+                        <div class="seller-stats">
+                            <span class="stat-item">Игр: <span id="sellerGamesCount">0</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <nav class="seller-nav">
+                    <button class="menu-button" id="mainSellerMenuBtn">
+                        <img src="assets/icons/buy.svg" alt="" class="menu-icon" />
+                        <span>Главная</span>
+                    </button>
+
+                    <button class="menu-button" id="sellerGamesMenuBtn">
+                        <img src="assets/icons/product.svg" alt="" class="menu-icon" />
+                        <span>Мои товары</span>
+                    </button>
+
+                    <button class="menu-button" id="sellerLogoutBtn">
+                        <img src="assets/icons/logout.svg" alt="" class="menu-icon" />
+                        <span>Выйти</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </div>
 
         <main class="login-canvas" role="main" aria-label="Вход">
             <div class="login-layout">

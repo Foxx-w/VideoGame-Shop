@@ -177,9 +177,12 @@ class ApiService {
         return this.request(`/api/orders?${params}`);
     }
 
-    async createOrder() {
+    async createOrder(orderItems) {
+        // orderItems: [{ GameId, Quantity }] or { OrderItems: [...] }
+        const body = Array.isArray(orderItems) ? { OrderItems: orderItems } : (orderItems || {});
         return this.request('/api/orders', {
             method: 'POST',
+            body: JSON.stringify(body),
         });
     }
 

@@ -5,7 +5,7 @@ class CartPage {
     }
 
     async init() {
-        await auth.checkAuth();
+        await auth.init();
         if (auth.currentUser?.role !== 'CUSTOMER') {
             window.location.href = 'index.html';
             return;
@@ -24,40 +24,42 @@ class CartPage {
     }
 
     renderCart(cart) {
-        const cartItemsContainer = document.getElementById('cartItems');
-        const totalAmountElement = document.getElementById('totalAmount');
+        const cartItemsContainer = document.getElementById('cartBody') || document.getElementById('cartItems');
+        const totalAmountElement = document.getElementById('totalPrice') || document.getElementById('totalAmount');
         
         if (!cartItemsContainer) return;
         
         cartItemsContainer.innerHTML = '';
         
-        if (!cart || !cart.cartItems || cart.cartItems.length === 0) {
+        const items = cart?.CartItems || cart?.cartItems || [];
+
+        if (!items || items.length === 0) {
             cartItemsContainer.innerHTML = '<div class="empty-cart">Корзина пуста</div>';
             if (totalAmountElement) totalAmountElement.textContent = '0 ₽';
             return;
         }
-        
+
         let totalAmount = 0;
-        
-        cart.cartItems.forEach(item => {
+
+        items.forEach(item => {
             const itemElement = document.createElement('div');
             itemElement.className = 'cart-item';
             itemElement.innerHTML = `
                 <div class="cart-item-info">
-                    <h4>${item.gameTitle}</h4>
-                    <div class="cart-item-price">${item.price ? item.price.toFixed(2) : '0.00'} ₽</div>
+                    <h4>${item.GameTitle || item.gameTitle || ''}</h4>
+                    <div class="cart-item-price">${(item.Price ?? item.price) ? ((item.Price ?? item.price).toFixed ? (item.Price ?? item.price).toFixed(2) : (item.Price ?? item.price)) : '0.00'} ₽</div>
                 </div>
                 <div class="cart-item-controls">
-                    <button class="quantity-btn minus" data-game-id="${item.gameId}">-</button>
-                    <span class="quantity">${item.quantity}</span>
-                    <button class="quantity-btn plus" data-game-id="${item.gameId}">+</button>
-                    <button class="remove-btn" data-game-id="${item.gameId}">×</button>
+                    <button class="quantity-btn minus" data-game-id="${item.GameId || item.gameId}">-</button>
+                    <span class="quantity">${item.Quantity ?? item.quantity ?? 0}</span>
+                    <button class="quantity-btn plus" data-game-id="${item.GameId || item.gameId}">+</button>
+                    <button class="remove-btn" data-game-id="${item.GameId || item.gameId}">×</button>
                 </div>
             `;
             cartItemsContainer.appendChild(itemElement);
             
             // Обновить общую сумму
-            totalAmount += (item.price || 0) * item.quantity;
+            totalAmount += ((item.Price ?? item.price) || 0) * (item.Quantity ?? item.quantity ?? 0);
         });
         
         if (totalAmountElement) {
@@ -70,7 +72,7 @@ class CartPage {
         document.addEventListener('click', async (e) => {
             const gameId = e.target.dataset?.gameId;
             if (!gameId) return;
-            
+
             if (e.target.classList.contains('plus')) {
                 await this.updateCartItem(gameId, 1);
             } else if (e.target.classList.contains('minus')) {
@@ -90,14 +92,17 @@ class CartPage {
     async updateCartItem(gameId, delta) {
         try {
             const cart = await api.getCart();
-            const item = cart.cartItems.find(i => i.gameId == gameId);
-            
+            const items = cart?.CartItems || cart?.cartItems || [];
+            const item = items.find(i => (i.GameId || i.gameId) == gameId);
+
             if (item) {
-                const newQuantity = item.quantity + delta;
+                const currentQty = item.Quantity ?? item.quantity ?? 0;
+                const newQuantity = currentQty + delta;
                 if (newQuantity <= 0) {
-                    await api.removeFromCart({ gameId, quantity: item.quantity });
+                    await api.removeFromCart(gameId, currentQty);
                 } else {
-                    await api.addToCart({ gameId, quantity: delta });
+                    // addToCart increases by quantity
+                    await api.addToCart(gameId, delta);
                 }
                 await this.loadCart();
             }
@@ -109,10 +114,12 @@ class CartPage {
     async removeCartItem(gameId) {
         try {
             const cart = await api.getCart();
-            const item = cart.cartItems.find(i => i.gameId == gameId);
-            
+            const items = cart?.CartItems || cart?.cartItems || [];
+            const item = items.find(i => (i.GameId || i.gameId) == gameId);
+
             if (item) {
-                await api.removeFromCart({ gameId, quantity: item.quantity });
+                const qty = item.Quantity ?? item.quantity ?? 0;
+                await api.removeFromCart(gameId, qty);
                 await this.loadCart();
             }
         } catch (error) {
@@ -123,17 +130,17 @@ class CartPage {
     async checkout() {
         try {
             const cart = await api.getCart();
-            if (!cart.cartItems || cart.cartItems.length === 0) {
+            const items = cart?.CartItems || cart?.cartItems || [];
+            if (!items || items.length === 0) {
                 alert('Корзина пуста');
                 return;
             }
-            
-            const orderItems = cart.cartItems.map(item => ({
-                gameId: item.gameId,
-                quantity: item.quantity
+            const orderItems = items.map(item => ({
+                GameId: item.GameId ?? item.gameId,
+                Quantity: item.Quantity ?? item.quantity
             }));
-            
-            await api.createOrder({ orderItems });
+
+            await api.createOrder(orderItems);
             alert('Заказ успешно оформлен!');
             await this.loadCart(); // Корзина должна очиститься после заказа
         } catch (error) {
