@@ -1,13 +1,15 @@
 /* ========== КОНТЕЙНЕР ДЛЯ ФИКСИРОВАННОГО МЕНЮ ========== */
 .menu-fixed-container {
     position: fixed;
-    top: 164px; /* Высота header */
-    right: 50px; /* Сдвигаем меню левее */
-    width: 420px; /* Фиксированная ширина меню */
+    top: 164px;
+    right: 50px; 
+    width: 420px; 
     z-index: 1001;
     pointer-events: none;
-    /* Важно: при прокрутке контейнер не двигается */
+    display: none;
 }
+
+
 
 /* ========== ОБЩИЕ СТИЛИ МЕНЮ ========== */
 .menu-overlay {
@@ -31,7 +33,7 @@
     width: 100%;
     /* Фиксированное положение относительно контейнера */
     position: relative;
-    /* Убраны все анимации перемещения */
+    height: 164px;
 }
 
 /* Когда меню показано */
@@ -119,8 +121,7 @@
 
 /* ========== МЕНЮ ГОСТЯ ========== */
 .guest-menu {
-    height: 210px;
-    padding: 20px;
+    height: 164px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -130,8 +131,7 @@
 
 /* ========== МЕНЮ ПОЛЬЗОВАТЕЛЯ ========== */
 .user-menu {
-    height: 320px;
-    padding: 24px 20px 20px;
+    height: 164px;
 }
 
 .user-info {
@@ -205,8 +205,7 @@
 
 /* ========== МЕНЮ ПРОДАВЦА ========== */
 .seller-menu {
-    height: 460px;
-    padding: 24px 20px 20px;
+    height: 164px;
 }
 
 /* Для кнопок в меню продавца с таким же выравниванием текста */
